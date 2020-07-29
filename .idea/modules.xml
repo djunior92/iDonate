@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/iDonate.iml" filepath="$PROJECT_DIR$/iDonate.iml" />
+      <module fileurl="file://$PROJECT_DIR$/idonate.iml" filepath="$PROJECT_DIR$/idonate.iml" />
+    </modules>
+  </component>
+</project>
