@@ -2,6 +2,7 @@ package br.com.idonate.iDonate.service.implementation;
 
 import br.com.idonate.iDonate.ApplicationContextLoad;
 import br.com.idonate.iDonate.model.Enum.StatusUser;
+import br.com.idonate.iDonate.model.Perfil;
 import br.com.idonate.iDonate.model.User;
 import br.com.idonate.iDonate.repository.UserRepository;
 import br.com.idonate.iDonate.service.UserService;
@@ -57,6 +58,16 @@ public class UserServiceImp implements UserService {
         }
 
         return (changed ? userRepository.save(userSaved) : userSaved);
+    }
+
+    @Override
+    public void linkPerfil(Perfil perfil) {
+        Optional<User> userOptional = userRepository.findById(perfil.getId());
+        if (!userOptional.isPresent()) {
+
+        }
+        userOptional.get().setPerfil(perfil);
+        userRepository.save(userOptional.get());
     }
 
     @Override

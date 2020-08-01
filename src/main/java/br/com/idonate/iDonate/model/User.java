@@ -47,6 +47,10 @@ public class User implements UserDetails {
     @Column(name = "validation_date")
     private LocalDateTime validationDate;
 
+    @OneToOne
+    @JoinColumn(name = "perfil_id")
+    private Perfil perfil;
+
     @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_role", uniqueConstraints = @UniqueConstraint (
             columnNames = {"user_id","role_id"}, name = "unique_role_user"),
