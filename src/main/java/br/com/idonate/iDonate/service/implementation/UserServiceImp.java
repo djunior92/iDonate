@@ -7,6 +7,7 @@ import br.com.idonate.iDonate.repository.UserRepository;
 import br.com.idonate.iDonate.service.UserService;
 import br.com.idonate.iDonate.service.exception.InvalidEmailException;
 import br.com.idonate.iDonate.service.exception.LoginUnavailableException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,11 +20,8 @@ import java.util.regex.Pattern;
 @Service
 public class UserServiceImp implements UserService {
 
-    private final UserRepository userRepository;
-
-    public UserServiceImp(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public User save(User user) throws LoginUnavailableException, InvalidEmailException {
@@ -73,6 +71,11 @@ public class UserServiceImp implements UserService {
             return userRepository.save(user);
         }
         return null;
+    }
+
+    @Override
+    public Optional<User> searcheLogin(String login) {
+        return userRepository.findByLogin(login);
     }
 
     private void loginValidation(User user) throws LoginUnavailableException {

@@ -41,8 +41,10 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private StatusUser status;
 
+    @Column(name = "registration_date")
     private LocalDateTime registrationDate;
 
+    @Column(name = "validation_date")
     private LocalDateTime validationDate;
 
     @OneToMany(fetch = FetchType.EAGER)

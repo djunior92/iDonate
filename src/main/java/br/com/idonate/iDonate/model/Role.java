@@ -6,6 +6,8 @@ import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Data
@@ -18,7 +20,9 @@ public class Role implements GrantedAuthority {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name_role", length = 20, nullable = false)
+    @NotNull
+    @Size(min = 3, max = 20)
+    @Column(name = "name_role")
     private String nameRole;
 
     @Override

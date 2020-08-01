@@ -24,13 +24,13 @@ public class WebConfigSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
 
-                .disable().authorizeRequests().antMatchers("/newuser").permitAll()
-                .antMatchers("/newuser/").permitAll()
-                .antMatchers("/newuser/**").permitAll()
+                .disable().authorizeRequests().antMatchers("/v1/newuser").permitAll()
+                .antMatchers("/v1/newuser/").permitAll()
+                .antMatchers("/v1/newuser/**").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .anyRequest().authenticated().and().logout().logoutSuccessUrl("/index")
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .and().addFilterBefore(new JWTLoginFilter("/login", authenticationManager()),
+                .logoutRequestMatcher(new AntPathRequestMatcher("/v1/logout"))
+                .and().addFilterBefore(new JWTLoginFilter("/v1/login", authenticationManager()),
                 UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new JWTApiAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
