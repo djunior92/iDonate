@@ -1,16 +1,14 @@
 package br.com.idonate.iDonate.service.implementation;
 
-import br.com.idonate.iDonate.model.Enum.PeopleType;
 import br.com.idonate.iDonate.model.Cotacao;
-import br.com.idonate.iDonate.model.Perfil;
 import br.com.idonate.iDonate.repository.CotacaoRepository;
 import br.com.idonate.iDonate.service.CotacaoService;
+import br.com.idonate.iDonate.service.exception.InvalidValueException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,7 +19,9 @@ public class CotacaoServiceImpl implements CotacaoService {
 
 
     @Override
-    public Cotacao save(Cotacao cotacao) {
+    public Cotacao save(Cotacao cotacao) throws InvalidValueException {
+        valueValidation(cotacao);
+
         cotacao.setDateStart(LocalDateTime.now());
         cotacao.setDateEnd(LocalDateTime.now());
         Cotacao cotacao1Saved = cotacaoRepository.save(cotacao);
@@ -29,7 +29,9 @@ public class CotacaoServiceImpl implements CotacaoService {
     }
 
     @Override
-    public Cotacao edit(Long id, Cotacao cotacao) {
+    public Cotacao edit(Long id, Cotacao cotacao) throws InvalidValueException {
+        valueValidation(cotacao);
+
         Optional<Cotacao> optionalCotacao = cotacaoRepository.findById(id);
 
         if (!optionalCotacao.isPresent()) {
@@ -42,10 +44,17 @@ public class CotacaoServiceImpl implements CotacaoService {
         return cotacaoRepository.save(cotacaoSaved);
     }
 
-
     @Override
     public Optional<Cotacao> searchById(Long id) {
         return cotacaoRepository.findById(id);
+    }
+
+
+    private void valueValidation(Cotacao cotacao) throws InvalidValueException {
+
+        if (cotacao.getPricePoint() <= 0) {
+            throw new InvalidValueException("Valor: " + cotacao.getPricePoint() + " inválido. O valor deve ser maior que zero.");
+        }
     }
 
 }
