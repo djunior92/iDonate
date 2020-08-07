@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface CotacaoService {
 
     Cotacao save(Cotacao cotacao) throws InvalidValueException;
-    Cotacao edit(Long id, Cotacao cotacao) throws InvalidValueException;
+    Cotacao encerrar(Long id, Cotacao cotacao);
     Optional<Cotacao> searchById(Long id);
 
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -29,9 +30,7 @@ public class CotacaoServiceImpl implements CotacaoService {
     }
 
     @Override
-    public Cotacao edit(Long id, Cotacao cotacao) throws InvalidValueException {
-        valueValidation(cotacao);
-
+    public Cotacao encerrar(Long id, Cotacao cotacao){
         Optional<Cotacao> optionalCotacao = cotacaoRepository.findById(id);
 
         if (!optionalCotacao.isPresent()) {
@@ -39,7 +38,6 @@ public class CotacaoServiceImpl implements CotacaoService {
         }
         Cotacao cotacaoSaved = optionalCotacao.get();
         cotacaoSaved.setDateEnd(cotacao.getDateEnd());
-        cotacaoSaved.setPricePoint(cotacao.getPricePoint());
 
         return cotacaoRepository.save(cotacaoSaved);
     }
@@ -52,7 +50,7 @@ public class CotacaoServiceImpl implements CotacaoService {
 
     private void valueValidation(Cotacao cotacao) throws InvalidValueException {
 
-        if (cotacao.getPricePoint() <= 0) {
+        if (cotacao.getPricePoint().compareTo(BigDecimal.ZERO) <= 0){
             throw new InvalidValueException("Valor: " + cotacao.getPricePoint() + " inválido. O valor deve ser maior que zero.");
         }
     }

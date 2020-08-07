@@ -25,8 +25,8 @@ public class CotacaoResource {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Cotacao> edit(@PathVariable Long id, @Valid @RequestBody Cotacao cotacao) throws InvalidValueException {
-        Cotacao updateCotacao = cotacaoService.edit(id, cotacao);
+    public ResponseEntity<Cotacao> encerrar(@PathVariable Long id, @Valid @RequestBody Cotacao cotacao){
+        Cotacao updateCotacao = cotacaoService.encerrar(id, cotacao);
         return new ResponseEntity<>(updateCotacao, HttpStatus.OK);
     }
 
