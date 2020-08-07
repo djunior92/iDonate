@@ -61,13 +61,9 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public void linkPerfil(Perfil perfil) {
-        Optional<User> userOptional = userRepository.findById(perfil.getId());
-        if (!userOptional.isPresent()) {
-
-        }
-        userOptional.get().setPerfil(perfil);
-        userRepository.save(userOptional.get());
+    public void linkPerfil(User user, Perfil perfil) {
+        user.setPerfil(perfil);
+        userRepository.save(user);
     }
 
     @Override

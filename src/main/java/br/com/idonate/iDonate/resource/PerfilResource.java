@@ -2,7 +2,9 @@ package br.com.idonate.iDonate.resource;
 
 import br.com.idonate.iDonate.model.Perfil;
 import br.com.idonate.iDonate.service.PerfilService;
+import br.com.idonate.iDonate.service.exception.PerfilNotRegisteredException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,15 +21,15 @@ public class PerfilResource {
     PerfilService perfilService;
 
     @PutMapping("/{id}")
-    public ResponseEntity<Perfil> edit(@PathVariable Long id, @Valid @RequestBody Perfil perfil) {
+    public ResponseEntity<Perfil> edit(@PathVariable Long id, @Valid @RequestBody Perfil perfil) throws EmptyResultDataAccessException {
         Perfil updatePerfil = perfilService.edit(id, perfil);
         return new ResponseEntity<>(updatePerfil, HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<Perfil> save(@Valid @RequestBody Perfil perfil) {
-        Perfil savedPerfil = perfilService.save(perfil);
-        return new ResponseEntity<>(savedPerfil, HttpStatus.OK);
+    @PostMapping("/{login}")
+    public ResponseEntity<Perfil> save(@PathVariable String login, @Valid @RequestBody Perfil perfil) throws PerfilNotRegisteredException {
+        Perfil savedPerfil = perfilService.save(login, perfil);
+        return new ResponseEntity<>(savedPerfil, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")

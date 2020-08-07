@@ -11,7 +11,7 @@ public interface UserService {
 
     User save(User user) throws LoginUnavailableException, InvalidEmailException;
     User edit(Long id, User user) throws InvalidEmailException;
-    void linkPerfil(Perfil perfil);
+    void linkPerfil(User user, Perfil perfil);
     User validate(String login);
     Optional<User> searcheLogin(String login);
 
