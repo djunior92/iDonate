@@ -3,11 +3,12 @@ package br.com.idonate.iDonate.service.implementation;
 import br.com.idonate.iDonate.model.Cotacao;
 import br.com.idonate.iDonate.repository.CotacaoRepository;
 import br.com.idonate.iDonate.service.CotacaoService;
+import br.com.idonate.iDonate.service.exception.CotacaoNotRegisteredException;
 import br.com.idonate.iDonate.service.exception.InvalidValueException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -18,28 +19,22 @@ public class CotacaoServiceImpl implements CotacaoService {
     @Autowired
     CotacaoRepository cotacaoRepository;
 
-
     @Override
-    public Cotacao save(Cotacao cotacao) throws InvalidValueException {
+    @Transactional(rollbackOn = CotacaoNotRegisteredException.class)
+    public Cotacao save(Cotacao cotacao) throws CotacaoNotRegisteredException, InvalidValueException {
         valueValidation(cotacao);
-
-        cotacao.setDateStart(LocalDateTime.now());
-        cotacao.setDateEnd(LocalDateTime.now());
-        Cotacao cotacao1Saved = cotacaoRepository.save(cotacao);
-        return cotacao1Saved;
+        try {
+            encerrar();
+            cotacao.setDateStart(LocalDateTime.now());
+            return cotacaoRepository.save(cotacao);
+        } catch (Exception e) {
+            throw new CotacaoNotRegisteredException("Erro ao gravar cotação.");
+        }
     }
 
     @Override
-    public Cotacao encerrar(Long id, Cotacao cotacao){
-        Optional<Cotacao> optionalCotacao = cotacaoRepository.findById(id);
-
-        if (!optionalCotacao.isPresent()) {
-            throw new EmptyResultDataAccessException(1);
-        }
-        Cotacao cotacaoSaved = optionalCotacao.get();
-        cotacaoSaved.setDateEnd(cotacao.getDateEnd());
-
-        return cotacaoRepository.save(cotacaoSaved);
+    public Optional<Cotacao> searchOpen() {
+        return cotacaoRepository.findByDateEndIsNull();
     }
 
     @Override
@@ -47,6 +42,17 @@ public class CotacaoServiceImpl implements CotacaoService {
         return cotacaoRepository.findById(id);
     }
 
+    public void encerrar(){
+        Optional<Cotacao> optionalCotacao = cotacaoRepository.findByDateEndIsNull();
+
+        if (!optionalCotacao.isPresent()) {
+            return;
+        }
+        Cotacao cotacaoSaved = optionalCotacao.get();
+        cotacaoSaved.setDateEnd(LocalDateTime.now());
+
+        cotacaoRepository.save(cotacaoSaved);
+    }
 
     private void valueValidation(Cotacao cotacao) throws InvalidValueException {
 

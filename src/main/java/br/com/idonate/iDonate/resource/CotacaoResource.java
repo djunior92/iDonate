@@ -19,15 +19,15 @@ public class CotacaoResource {
     CotacaoService cotacaoService;
 
     @PostMapping
-    public ResponseEntity<Cotacao> save(@Valid @RequestBody Cotacao cotacao) throws InvalidValueException{
+    public ResponseEntity<Cotacao> save(@Valid @RequestBody Cotacao cotacao) throws Exception, InvalidValueException{
         Cotacao savedCotacao = cotacaoService.save(cotacao);
         return new ResponseEntity<>(savedCotacao, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Cotacao> encerrar(@PathVariable Long id, @Valid @RequestBody Cotacao cotacao){
-        Cotacao updateCotacao = cotacaoService.encerrar(id, cotacao);
-        return new ResponseEntity<>(updateCotacao, HttpStatus.OK);
+    @GetMapping
+    public ResponseEntity<Cotacao> searchOpen() {
+        Optional<Cotacao> cotacao = cotacaoService.searchOpen();
+        return (cotacao.isPresent() ? ResponseEntity.ok(cotacao.get()) : ResponseEntity.notFound().build());
     }
 
     @GetMapping("/{id}")

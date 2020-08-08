@@ -7,4 +7,6 @@ import java.util.Optional;
 public interface CotacaoRepository extends JpaRepository<Cotacao, Long> {
 
     Optional<Cotacao> findById(Long id);
+    Optional<Cotacao> findByDateEndIsNull();
+
 }
