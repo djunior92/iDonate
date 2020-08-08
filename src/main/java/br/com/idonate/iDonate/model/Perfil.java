@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity(name = "perfil")
 @Data
@@ -57,5 +58,8 @@ public class Perfil {
 
     @Column(name = "date_birth")
     private LocalDateTime dateBirth;
+
+    @OneToMany(mappedBy = "perfil")
+    private List<Address> addresses;
 
 }

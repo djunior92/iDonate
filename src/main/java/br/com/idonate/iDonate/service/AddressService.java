@@ -13,5 +13,5 @@ public interface AddressService {
     Address edit(Long id, Address address);
     void delete(Long id);
     Optional<Address> searchById(Long id);
-    //List<Address> searchByPerfil(Perfil perfil);  //CRIAR FUNÇÃO PARA TRAZER OS ENDEREÇOS DO PERFIL LOGADO
+    List<Address> searchByPerfil(Perfil perfil);
 }

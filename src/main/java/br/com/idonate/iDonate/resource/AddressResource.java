@@ -1,6 +1,7 @@
 package br.com.idonate.iDonate.resource;
 
 import br.com.idonate.iDonate.model.Address;
+import br.com.idonate.iDonate.model.Perfil;
 import br.com.idonate.iDonate.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -33,6 +35,11 @@ public class AddressResource {
     public ResponseEntity<Address> searchById(@PathVariable Long id) {
         Optional<Address> address = addressService.searchById(id);
         return (address.isPresent() ? ResponseEntity.ok(address.get()) : ResponseEntity.notFound().build());
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Address>> searchByPerfil(@RequestBody Perfil perfil) {
+        return new ResponseEntity<>(addressService.searchByPerfil(perfil), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

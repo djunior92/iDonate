@@ -22,30 +22,18 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public Address save(Address address){
-
-        //address.setDateStart(LocalDateTime.now());
         return addressRepository.save(address);
     }
 
 
     @Override
     public Address edit(Long id, Address address) {
-        Optional<Address> optionalAddress = addressRepository.findById(id);
-
-        if (!optionalAddress.isPresent()) {
+        if (!adrressExist(id)) {
             throw new EmptyResultDataAccessException(1);
         }
+        address.setId(id);
 
-        Address addressSaved = optionalAddress.get();
-        addressSaved.setStreetAddress(address.getStreetAddress());
-        addressSaved.setNumberAddress(address.getNumberAddress());
-        addressSaved.setComplementAddress(address.getComplementAddress());
-        addressSaved.setCep(address.getCep());
-        addressSaved.setNeighborhood(address.getNeighborhood());
-        addressSaved.setCity(address.getCity());
-        addressSaved.setUf(address.getUf());
-
-        return addressRepository.save(addressSaved);
+        return addressRepository.save(address);
     }
 
     @Override
@@ -58,5 +46,16 @@ public class AddressServiceImpl implements AddressService {
         return addressRepository.findById(id);
     }
 
-    //CRIAR FUNÇÃO PARA TRAZER OS ENDEREÇOS DO PERFIL LOGADO
+    @Override
+    public List<Address> searchByPerfil(Perfil perfil) {
+        return addressRepository.findByPerfil(perfil);
+    }
+
+    private Boolean adrressExist(Long id) {
+        Optional<Address> optionalAddress = addressRepository.findById(id);
+        if (!optionalAddress.isPresent()) {
+            return false;
+        }
+        return true;
+    }
 }

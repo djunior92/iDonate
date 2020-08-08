@@ -1,5 +1,7 @@
 package br.com.idonate.iDonate.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -54,4 +56,14 @@ public class Address {
     @Column(name = "uf")
     @Size(min = 2, max = 2)
     private String uf;
+
+    @JsonIgnore
+    public Perfil getPerfil() {
+        return this.perfil;
+    }
+
+    @JsonProperty
+    public void setPerfil(Perfil perfil) {
+        this.perfil = perfil;
+    }
 }
