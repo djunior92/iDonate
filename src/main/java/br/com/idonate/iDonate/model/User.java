@@ -51,6 +51,9 @@ public class User implements UserDetails {
     @JoinColumn(name = "perfil_id")
     private Perfil perfil;
 
+    @Column(name = "cod_validation")
+    private String codValidation;
+
     @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_role", uniqueConstraints = @UniqueConstraint (
             columnNames = {"user_id","role_id"}, name = "unique_role_user"),

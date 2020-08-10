@@ -1,28 +1,43 @@
 package br.com.idonate.iDonate.service.implementation;
 
 import br.com.idonate.iDonate.ApplicationContextLoad;
+import br.com.idonate.iDonate.config.property.IDonateProperty;
+import br.com.idonate.iDonate.mail.Mailer;
 import br.com.idonate.iDonate.model.Enum.StatusUser;
 import br.com.idonate.iDonate.model.Perfil;
 import br.com.idonate.iDonate.model.User;
+import br.com.idonate.iDonate.model.view.ValidationUser;
 import br.com.idonate.iDonate.repository.UserRepository;
 import br.com.idonate.iDonate.service.UserService;
-import br.com.idonate.iDonate.service.exception.InvalidEmailException;
-import br.com.idonate.iDonate.service.exception.LoginUnavailableException;
+import br.com.idonate.iDonate.service.exception.*;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
 public class UserServiceImp implements UserService {
 
+    private static final String subject = "Validação de Usuário";
+
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private Mailer mailer;
+
+    @Autowired
+    private IDonateProperty property;
 
     @Override
     public User save(User user) throws LoginUnavailableException, InvalidEmailException {
@@ -32,12 +47,12 @@ public class UserServiceImp implements UserService {
         user.setPassw(encrypted);
         user.setStatus(StatusUser.AGUARDANDO_VALIDACAO);
         user.setRegistrationDate(LocalDateTime.now());
+        user.setCodValidation(generateCodValidation());
         return userRepository.save(user);
     }
 
     @Override
     public User edit(Long id, User user) throws InvalidEmailException {
-        Boolean changed = false;
         Optional<User> optionalUser = userRepository.findById(id);
 
         if (!optionalUser.isPresent()) {
@@ -45,19 +60,14 @@ public class UserServiceImp implements UserService {
         }
         User userSaved = optionalUser.get();
 
-        if (!userSaved.getEmail().equals(user.getEmail())) {
-            userSaved.setEmail(user.getEmail());
-            emailValidation(userSaved);
-            changed = true;
-        }
+        userSaved.setEmail(user.getEmail());
+        emailValidation(userSaved);
 
-        if (!userSaved.getStatus().equals(StatusUser.AGUARDANDO_VALIDACAO)) {
-            userSaved.setStatus(StatusUser.AGUARDANDO_VALIDACAO);
-            changed = true;
+        userSaved.setStatus(StatusUser.AGUARDANDO_VALIDACAO);
 
-        }
+        userSaved.setCodValidation(generateCodValidation());
 
-        return (changed ? userRepository.save(userSaved) : userSaved);
+        return userRepository.save(userSaved);
     }
 
     @Override
@@ -67,22 +77,54 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public User validate(String login) {
+    public User validate(ValidationUser validationUser) throws InvalidLoginException,
+            LoginAlreadyValidatedException, InvalidCodValidationException {
         Optional<User> userOpt = ApplicationContextLoad.getApplicationContext()
-                .getBean(UserRepository.class).findByLogin(login);
+                .getBean(UserRepository.class).findByLogin(validationUser.getLogin());
 
-        if (userOpt.isPresent()) {
-            User user = userOpt.get();
-            user.setStatus(StatusUser.VALIDADO);
-            user.setValidationDate(LocalDateTime.now());
-            return userRepository.save(user);
+        if (!userOpt.isPresent()) {
+            throw new InvalidLoginException("Login " + validationUser.getLogin() + " não encontrado para validação!");
         }
-        return null;
+
+        if (userOpt.get().getStatus().equals(StatusUser.VALIDADO)) {
+            throw new LoginAlreadyValidatedException("Login " + validationUser.getLogin() + " já está com status validado!");
+        }
+
+        if (!userOpt.get().getCodValidation().equals(validationUser.getCodValidation())) {
+            throw new InvalidCodValidationException("Código " + validationUser.getCodValidation() + " não é valido!");
+        }
+
+        User user = userOpt.get();
+        user.setStatus(StatusUser.VALIDADO);
+        user.setValidationDate(LocalDateTime.now());
+        return userRepository.save(user);
     }
 
     @Override
     public Optional<User> searcheLogin(String login) {
         return userRepository.findByLogin(login);
+    }
+
+    @Override
+    public void updateUnsetEmail(User user) {
+        user.setStatus(StatusUser.EMAIL_NAO_ENVIADO);
+        userRepository.save(user);
+    }
+
+    @Async("fileExecutor")
+    @Override
+    public void triggerEmail(User user) {
+        try {
+
+            String message = "Chave de validação: <h1>" + user.getCodValidation() + "</h1>";
+
+            List<String> recipients = new ArrayList<>();
+            recipients.add(user.getEmail());
+
+            mailer.sendEmail(property.getMail().getUserName(), recipients, subject, message);
+        } catch (Exception e) {
+
+        }
     }
 
     private void loginValidation(User user) throws LoginUnavailableException {
@@ -116,6 +158,12 @@ public class UserServiceImp implements UserService {
             }
         }
         return isEmailIdValid;
+    }
+
+    private String generateCodValidation() {
+        Random random = new Random();
+        Integer resultRandom = random.nextInt(999999) + 1;
+        return StringUtils.leftPad(resultRandom.toString(), 6, "0");
     }
 
 }

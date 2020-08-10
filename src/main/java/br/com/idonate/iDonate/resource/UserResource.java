@@ -1,8 +1,12 @@
 package br.com.idonate.iDonate.resource;
 
 import br.com.idonate.iDonate.model.User;
+import br.com.idonate.iDonate.model.view.ValidationUser;
 import br.com.idonate.iDonate.service.UserService;
+import br.com.idonate.iDonate.service.exception.InvalidCodValidationException;
 import br.com.idonate.iDonate.service.exception.InvalidEmailException;
+import br.com.idonate.iDonate.service.exception.InvalidLoginException;
+import br.com.idonate.iDonate.service.exception.LoginAlreadyValidatedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +22,10 @@ public class UserResource {
     @Autowired
     private UserService userService;
 
-    @PutMapping("/validation/{login}")
-    public ResponseEntity<User> validate(@PathVariable String login) {
-        User updatedUser = userService.validate(login);
+    @PutMapping("/validation")
+    public ResponseEntity<User> validate(@Valid @RequestBody ValidationUser validationUser) throws InvalidLoginException,
+            LoginAlreadyValidatedException, InvalidCodValidationException {
+        User updatedUser = userService.validate(validationUser);
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 
@@ -34,6 +39,11 @@ public class UserResource {
     public ResponseEntity<User> resendEmail(@PathVariable Long id, @Valid @RequestBody User user)
             throws InvalidEmailException {
         final User savedUser = userService.edit(id, user);
+        try {
+            userService.triggerEmail(savedUser);
+        } catch (Exception e) {
+            userService.updateUnsetEmail(savedUser);
+        }
         return new ResponseEntity<>(savedUser, HttpStatus.OK);
     }
 

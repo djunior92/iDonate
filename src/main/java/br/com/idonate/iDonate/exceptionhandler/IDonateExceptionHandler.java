@@ -1,5 +1,8 @@
 package br.com.idonate.iDonate.exceptionhandler;
 
+import br.com.idonate.iDonate.service.exception.InvalidEmailException;
+import br.com.idonate.iDonate.service.exception.InvalidTokenException;
+import br.com.idonate.iDonate.service.exception.LoginUnavailableException;
 import lombok.Getter;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +49,30 @@ public class IDonateExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, erros, headers, HttpStatus.BAD_REQUEST, request);
     }
 
+    @ExceptionHandler({LoginUnavailableException.class})
+    public ResponseEntity<Object> handleLoginUnavailableException(LoginUnavailableException ex, WebRequest request) {
+        String mensagemUsuario = messageSource.getMessage("usuario.existente", null, LocaleContextHolder.getLocale());
+        String mensagemDesenvolvedor = ex.toString();
+        List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+        return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler({InvalidTokenException.class})
+    public ResponseEntity<Object> handleInvalidTokenException(InvalidTokenException ex, WebRequest request) {
+        String mensagemUsuario = messageSource.getMessage("token.invalido", null, LocaleContextHolder.getLocale());
+        String mensagemDesenvolvedor = ex.toString();
+        List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+        return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler({InvalidEmailException.class})
+    public ResponseEntity<Object> handleInvalidEmailException(InvalidEmailException ex, WebRequest request) {
+        String mensagemUsuario = messageSource.getMessage("email.invalido", null, LocaleContextHolder.getLocale());
+        String mensagemDesenvolvedor = ex.toString();
+        List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+        return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
     @ExceptionHandler({ EmptyResultDataAccessException.class })
     public ResponseEntity<Object> handleEmptyResultDataAccessException(EmptyResultDataAccessException ex, WebRequest request) {
         String mensagemUsuario = messageSource.getMessage("recurso.nao-encontrado", null, LocaleContextHolder.getLocale());
@@ -81,8 +108,7 @@ public class IDonateExceptionHandler extends ResponseEntityExceptionHandler {
             this.developerMessage = developerMessage;
         }
 
-        @Getter
-        private String userMessage;
+        @Getter private String userMessage;
         @Getter private String developerMessage;
 
     }

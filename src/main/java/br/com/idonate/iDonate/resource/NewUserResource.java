@@ -25,6 +25,11 @@ public class NewUserResource {
     public ResponseEntity<User> saveUser(@Valid @RequestBody User user)
             throws LoginUnavailableException, InvalidEmailException {
         final User savedUser = userService.save(user);
+        try {
+            userService.triggerEmail(savedUser);
+        } catch (Exception e) {
+            userService.updateUnsetEmail(savedUser);
+        }
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 
