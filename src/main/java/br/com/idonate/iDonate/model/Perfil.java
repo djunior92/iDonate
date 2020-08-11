@@ -62,4 +62,7 @@ public class Perfil {
     @OneToMany(mappedBy = "perfil")
     private List<Address> addresses;
 
+    @OneToMany(mappedBy = "perfil")
+    private List<BankAccount> bankAccount;
+
 }

@@ -2,6 +2,7 @@ package br.com.idonate.iDonate.resource;
 
 
 import br.com.idonate.iDonate.model.BankAccount;
+import br.com.idonate.iDonate.model.Perfil;
 import br.com.idonate.iDonate.service.BankAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -34,6 +36,11 @@ public class BankAccountResource {
     public ResponseEntity<BankAccount> searchById(@PathVariable Long id) {
         Optional<BankAccount> bankAccount = bankAccountService.searchById(id);
         return (bankAccount.isPresent() ? ResponseEntity.ok(bankAccount.get()) : ResponseEntity.notFound().build());
+    }
+
+    @GetMapping
+    public ResponseEntity<List<BankAccount>> searchByPerfil(@RequestBody Perfil perfil) {
+        return new ResponseEntity<>(bankAccountService.searchByPerfil(perfil), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

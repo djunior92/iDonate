@@ -57,11 +57,9 @@ public class BankAccountServiceImpl implements BankAccountService {
     }
 
 
-    /*@Override
+    @Override
     public List<BankAccount> searchByPerfil(Perfil perfil) {
         return bankAccountRepository.findByPerfil(perfil);
-    }*/
-
-    //CRIAR FUNÇÃO PARA TRAZER AS CONTAS BANCÁRIAS DO PERFIL LOGADO
+    }
 
 }

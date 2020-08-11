@@ -1,6 +1,8 @@
 package br.com.idonate.iDonate.model;
 
 import br.com.idonate.iDonate.model.Enum.BankAccountType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -43,5 +45,15 @@ public class BankAccount {
 
     @Column(name = "dg_account")
     private String dgAccount;
+
+    @JsonIgnore
+    public Perfil getPerfil() {
+        return this.perfil;
+    }
+
+    @JsonProperty
+    public void setPerfil(Perfil perfil) {
+        this.perfil = perfil;
+    }
 }
 
