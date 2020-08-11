@@ -9,11 +9,11 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Entity(name = "cotacao")
+@Entity(name = "quotation")
 @Data
 @EqualsAndHashCode(callSuper = false, of = {"id"})
 @ToString(of = {"id"})
-public class Cotacao {
+public class Quotation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

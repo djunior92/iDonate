@@ -1,4 +1,4 @@
-CREATE TABLE `cotacao` (
+CREATE TABLE `quotation` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `date_start` datetime NOT NULL,
   `date_end` datetime,
