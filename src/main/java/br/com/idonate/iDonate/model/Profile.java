@@ -63,6 +63,9 @@ public class Profile {
     private List<Address> addresses;
 
     @OneToMany(mappedBy = "profile")
-    private List<BankAccount> bankAccount;
+    private List<BankAccount> bankAccounts;
+
+    @OneToMany(mappedBy = "profile")
+    private List<Campaign> campaigns;
 
 }
