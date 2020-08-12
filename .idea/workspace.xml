@@ -2,26 +2,60 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="55eb4145-e5a8-4b14-b2f5-1dd83f68d7d5" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/repository/QuotationRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/resource/QuotationResource.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/QuotationService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/exception/QuotationNotRegisteredException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/implementation/QuotationServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/repository/ProfileRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/resource/ProfileResource.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/ProfileService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/exception/ProfileNotRegisteredException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/implementation/ProfileServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/Cotacao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/Quotation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/repository/CotacaoRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/resource/CotacaoResource.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/CotacaoService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/exception/CotacaoNotRegisteredException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/implementation/CotacaoServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/db/migration/V0003__CREATED_TABLE_COTACAO.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V0003__CREATED_TABLE_QUOTATION.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/Address.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/Address.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/BankAccount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/BankAccount.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/Enum/PeopleType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/Enum/PeopleType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/Enum/StatusUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/Enum/StatusUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/Perfil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/Profile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/repository/AddressRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/repository/AddressRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/repository/BankAccountRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/repository/BankAccountRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/repository/PerfilRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/resource/AddressResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/resource/AddressResource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/resource/BankAccountResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/resource/BankAccountResource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/resource/PerfilResource.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/AddressService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/AddressService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/BankAccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/BankAccountService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/PerfilService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/exception/PerfilNotRegisteredException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/implementation/AddressServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/implementation/AddressServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/implementation/BankAccountServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/implementation/BankAccountServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/implementation/PerfilServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/implementation/UserServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/implementation/UserServiceImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/db/migration/V0002__CREATED_TABLE_PERFIL.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V0002__CREATED_TABLE_PROFILE.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/db/migration/V0004__CREATED_TABLE_ADDRESS.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V0004__CREATED_TABLE_ADDRESS.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/db/migration/V0005__CREATED_TABLE_BANKACCOUNT.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V0005__CREATED_TABLE_BANKACCOUNT.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/db/migration/V0007__CREATED_TABLE_CAMPAIGN.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V0007__CREATED_TABLE_CAMPAIGN.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/messages.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/messages.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/br/com/idonate/iDonate/model/Cotacao.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/br/com/idonate/iDonate/repository/CotacaoRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/br/com/idonate/iDonate/resource/CotacaoResource.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/br/com/idonate/iDonate/service/CotacaoService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/br/com/idonate/iDonate/service/implementation/CotacaoServiceImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/db/migration/V0003__CREATED_TABLE_COTACAO.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/br/com/idonate/iDonate/model/Address.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/br/com/idonate/iDonate/model/Address.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/br/com/idonate/iDonate/model/BankAccount.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/br/com/idonate/iDonate/model/BankAccount.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/br/com/idonate/iDonate/model/Perfil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/br/com/idonate/iDonate/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/br/com/idonate/iDonate/model/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/br/com/idonate/iDonate/repository/AddressRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/br/com/idonate/iDonate/repository/AddressRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/br/com/idonate/iDonate/repository/BankAccountRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/br/com/idonate/iDonate/repository/BankAccountRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/br/com/idonate/iDonate/repository/PerfilRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/br/com/idonate/iDonate/resource/AddressResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/br/com/idonate/iDonate/resource/AddressResource.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/br/com/idonate/iDonate/resource/BankAccountResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/br/com/idonate/iDonate/resource/BankAccountResource.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/br/com/idonate/iDonate/resource/PerfilResource.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/br/com/idonate/iDonate/service/AddressService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/br/com/idonate/iDonate/service/AddressService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/br/com/idonate/iDonate/service/BankAccountService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/br/com/idonate/iDonate/service/BankAccountService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/br/com/idonate/iDonate/service/PerfilService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/br/com/idonate/iDonate/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/br/com/idonate/iDonate/service/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/br/com/idonate/iDonate/service/exception/PerfilNotRegisteredException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/br/com/idonate/iDonate/service/implementation/AddressServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/br/com/idonate/iDonate/service/implementation/AddressServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/br/com/idonate/iDonate/service/implementation/BankAccountServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/br/com/idonate/iDonate/service/implementation/BankAccountServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/br/com/idonate/iDonate/service/implementation/PerfilServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/br/com/idonate/iDonate/service/implementation/UserServiceImp.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/br/com/idonate/iDonate/service/implementation/UserServiceImp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/db/migration/V0002__CREATED_TABLE_PERFIL.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/db/migration/V0004__CREATED_TABLE_ADDRESS.sql" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/db/migration/V0004__CREATED_TABLE_ADDRESS.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/db/migration/V0005__CREATED_TABLE_BANKACCOUNT.sql" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/db/migration/V0005__CREATED_TABLE_BANKACCOUNT.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/messages.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/messages.properties" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
@@ -31,6 +65,11 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/iDonate$IDonateApplication.ic" NAME="IDonateApplication Coverage Results" MODIFIED="1597191287493" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>br.com.idonate.iDonate.*</FILTER>
+    </SUITE>
   </component>
   <component name="FileEditorManager">
     <leaf />
@@ -47,10 +86,15 @@
     <findStrings>
       <find>Cotacao</find>
       <find>cotacao</find>
+      <find>profile</find>
+      <find>perfil</find>
+      <find>Perfil</find>
     </findStrings>
     <replaceStrings>
       <replace>Quotation</replace>
       <replace>quotation</replace>
+      <replace>Profile</replace>
+      <replace>profile</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -67,6 +111,10 @@
         <option value="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/BankAccountService.java" />
         <option value="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/implementation/BankAccountServiceImpl.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/resources/db/migration/V0002__CREATED_TABLE_PERFIL.sql" />
+        <option value="$PROJECT_DIR$/src/main/resources/db/migration/V0002__CREATED_TABLE_PROFILE.sql" />
+        <option value="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/Enum/StatusUser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/Enum/PeopleType.java" />
       </list>
     </option>
   </component>
@@ -91,9 +139,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -134,6 +179,25 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="iDonate" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="iDonate" type="b2602c69:ProjectViewProjectNode" />
+              <item name="iDonate" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="iDonate" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+              <item name="Enum" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="iDonate" type="b2602c69:ProjectViewProjectNode" />
+              <item name="iDonate" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="iDonate" type="462c0819:PsiDirectoryNode" />
               <item name="service" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -165,6 +229,9 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="ProjectViewState">
@@ -300,6 +367,8 @@
       <workItem from="1596592300502" duration="2014000" />
       <workItem from="1597104803956" duration="296000" />
       <workItem from="1597186956280" duration="1544000" />
+      <workItem from="1597190599008" duration="835000" />
+      <workItem from="1597191510312" duration="161000" />
     </task>
     <task id="LOCAL-00001" summary="Conclusão do perfil.">
       <created>1596762760930</created>
@@ -333,7 +402,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10604000" />
+    <option name="totallyTimeSpent" value="11600000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -359,17 +428,18 @@
       <window_info anchor="bottom" id="Run" order="2" weight="0.32905984" />
       <window_info anchor="bottom" id="Spring" order="7" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25302014" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25973153" />
       <window_info anchor="right" id="Bean Validation" order="3" />
       <window_info id="Web" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="right" id="Coverage" order="4" side_tool="true" weight="0.3295302" />
       <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32905984" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -481,7 +551,7 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/Perfil.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/Profile.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="518">
           <caret line="63" lean-forward="true" selection-start-line="63" selection-end-line="63" />
@@ -529,17 +599,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/db/migration/V0003__CREATED_TABLE_QUOTATION.sql">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/implementation/BankAccountServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-179">
           <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-          <folding>
-            <element signature="e#1924#1925#0" expanded="true" />
-            <element signature="e#1989#1990#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -557,18 +620,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/implementation/PerfilServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/implementation/ProfileServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
           <caret line="40" column="38" selection-start-line="40" selection-start-column="38" selection-end-line="40" selection-end-column="38" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/ValidationMessages.properties">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/messages.properties">
       <provider selected="true" editor-type-id="text-editor">
@@ -581,6 +638,35 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="148">
           <caret line="15" column="7" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/db/migration/V0002__CREATED_TABLE_PERFIL.sql" />
+    <entry file="file://$PROJECT_DIR$/src/main/resources/db/migration/V0002__CREATED_TABLE_PROFILE.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="102" selection-start-line="19" selection-start-column="102" selection-end-line="19" selection-end-column="102" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/Enum/StatusUser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="40" selection-start-line="6" selection-start-column="40" selection-end-line="6" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/Enum/PeopleType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="15" selection-start-line="5" selection-start-column="15" selection-end-line="5" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/Enum/BankAccountType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="23" lean-forward="true" selection-start-line="4" selection-start-column="5" selection-end-line="4" selection-end-column="23" />
         </state>
       </provider>
     </entry>

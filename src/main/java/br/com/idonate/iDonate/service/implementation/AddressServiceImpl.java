@@ -2,7 +2,7 @@ package br.com.idonate.iDonate.service.implementation;
 
 
 import br.com.idonate.iDonate.model.Address;
-import br.com.idonate.iDonate.model.Perfil;
+import br.com.idonate.iDonate.model.Profile;
 import br.com.idonate.iDonate.repository.AddressRepository;
 import br.com.idonate.iDonate.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,8 +47,8 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public List<Address> searchByPerfil(Perfil perfil) {
-        return addressRepository.findByPerfil(perfil);
+    public List<Address> searchByProfile(Profile profile) {
+        return addressRepository.findByProfile(profile);
     }
 
     private Boolean adrressExist(Long id) {

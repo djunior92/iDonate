@@ -1,8 +1,7 @@
 package br.com.idonate.iDonate.service;
 
 import br.com.idonate.iDonate.model.Address;
-import br.com.idonate.iDonate.model.Perfil;
-import br.com.idonate.iDonate.service.exception.InvalidValueException;
+import br.com.idonate.iDonate.model.Profile;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,5 +12,5 @@ public interface AddressService {
     Address edit(Long id, Address address);
     void delete(Long id);
     Optional<Address> searchById(Long id);
-    List<Address> searchByPerfil(Perfil perfil);
+    List<Address> searchByProfile(Profile profile);
 }

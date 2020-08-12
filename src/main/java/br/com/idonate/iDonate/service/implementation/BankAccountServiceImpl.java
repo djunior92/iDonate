@@ -2,7 +2,7 @@ package br.com.idonate.iDonate.service.implementation;
 
 
 import br.com.idonate.iDonate.model.BankAccount;
-import br.com.idonate.iDonate.model.Perfil;
+import br.com.idonate.iDonate.model.Profile;
 import br.com.idonate.iDonate.repository.BankAccountRepository;
 import br.com.idonate.iDonate.service.BankAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,8 +58,8 @@ public class BankAccountServiceImpl implements BankAccountService {
 
 
     @Override
-    public List<BankAccount> searchByPerfil(Perfil perfil) {
-        return bankAccountRepository.findByPerfil(perfil);
+    public List<BankAccount> searchByProfile(Profile profile) {
+        return bankAccountRepository.findByProfile(profile);
     }
 
 }

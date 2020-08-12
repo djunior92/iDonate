@@ -4,7 +4,7 @@ import br.com.idonate.iDonate.ApplicationContextLoad;
 import br.com.idonate.iDonate.config.property.IDonateProperty;
 import br.com.idonate.iDonate.mail.Mailer;
 import br.com.idonate.iDonate.model.Enum.StatusUser;
-import br.com.idonate.iDonate.model.Perfil;
+import br.com.idonate.iDonate.model.Profile;
 import br.com.idonate.iDonate.model.User;
 import br.com.idonate.iDonate.model.view.ValidationUser;
 import br.com.idonate.iDonate.repository.UserRepository;
@@ -71,8 +71,8 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public void linkPerfil(User user, Perfil perfil) {
-        user.setPerfil(perfil);
+    public void linkProfile(User user, Profile profile) {
+        user.setProfile(profile);
         userRepository.save(user);
     }
 

@@ -20,8 +20,8 @@ public class BankAccount {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "perfil_id")
-    private Perfil perfil;
+    @JoinColumn(name = "profile_id")
+    private Profile profile;
 
     @NotNull
     @Column(name = "account_type")
@@ -47,13 +47,13 @@ public class BankAccount {
     private String dgAccount;
 
     @JsonIgnore
-    public Perfil getPerfil() {
-        return this.perfil;
+    public Profile getProfile() {
+        return this.profile;
     }
 
     @JsonProperty
-    public void setPerfil(Perfil perfil) {
-        this.perfil = perfil;
+    public void setProfile(Profile profile) {
+        this.profile = profile;
     }
 }
 

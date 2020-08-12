@@ -20,8 +20,8 @@ public class Address {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "perfil_id")
-    private Perfil perfil;
+    @JoinColumn(name = "profile_id")
+    private Profile profile;
 
     @NotNull
     @Column(name = "street_address")
@@ -58,12 +58,12 @@ public class Address {
     private String uf;
 
     @JsonIgnore
-    public Perfil getPerfil() {
-        return this.perfil;
+    public Profile getProfile() {
+        return this.profile;
     }
 
     @JsonProperty
-    public void setPerfil(Perfil perfil) {
-        this.perfil = perfil;
+    public void setProfile(Profile profile) {
+        this.profile = profile;
     }
 }

@@ -1,7 +1,7 @@
 package br.com.idonate.iDonate.resource;
 
 import br.com.idonate.iDonate.model.Address;
-import br.com.idonate.iDonate.model.Perfil;
+import br.com.idonate.iDonate.model.Profile;
 import br.com.idonate.iDonate.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,8 +38,8 @@ public class AddressResource {
     }
 
     @GetMapping
-    public ResponseEntity<List<Address>> searchByPerfil(@RequestBody Perfil perfil) {
-        return new ResponseEntity<>(addressService.searchByPerfil(perfil), HttpStatus.OK);
+    public ResponseEntity<List<Address>> searchByProfile(@RequestBody Profile profile) {
+        return new ResponseEntity<>(addressService.searchByProfile(profile), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

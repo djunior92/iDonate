@@ -12,11 +12,11 @@ import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity(name = "perfil")
+@Entity(name = "profile")
 @Data
 @EqualsAndHashCode(callSuper = false, of = {"id"})
 @ToString(of = {"id"})
-public class Perfil {
+public class Profile {
 
     @Id
     private Long id;
@@ -59,10 +59,10 @@ public class Perfil {
     @Column(name = "date_birth")
     private LocalDateTime dateBirth;
 
-    @OneToMany(mappedBy = "perfil")
+    @OneToMany(mappedBy = "profile")
     private List<Address> addresses;
 
-    @OneToMany(mappedBy = "perfil")
+    @OneToMany(mappedBy = "profile")
     private List<BankAccount> bankAccount;
 
 }

@@ -1,4 +1,4 @@
-CREATE TABLE `perfil` (
+CREATE TABLE `profile` (
   `id` bigint(20) NOT NULL,
   `phone` varchar(15) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -16,5 +16,5 @@ CREATE TABLE `perfil` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-ALTER TABLE `user` ADD COLUMN `perfil_id` int;
-ALTER TABLE `user` ADD CONSTRAINT `fk_user_perfil` FOREIGN KEY (`perfil_id`) REFERENCES perfil(id);
+ALTER TABLE `user` ADD COLUMN `profile_id` int;
+ALTER TABLE `user` ADD CONSTRAINT `fk_user_profile` FOREIGN KEY (`profile_id`) REFERENCES profile(id);

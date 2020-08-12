@@ -48,8 +48,8 @@ public class User implements UserDetails {
     private LocalDateTime validationDate;
 
     @OneToOne
-    @JoinColumn(name = "perfil_id")
-    private Perfil perfil;
+    @JoinColumn(name = "profile_id")
+    private Profile profile;
 
     @Column(name = "cod_validation")
     private String codValidation;

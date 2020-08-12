@@ -2,7 +2,7 @@ package br.com.idonate.iDonate.resource;
 
 
 import br.com.idonate.iDonate.model.BankAccount;
-import br.com.idonate.iDonate.model.Perfil;
+import br.com.idonate.iDonate.model.Profile;
 import br.com.idonate.iDonate.service.BankAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,8 +39,8 @@ public class BankAccountResource {
     }
 
     @GetMapping
-    public ResponseEntity<List<BankAccount>> searchByPerfil(@RequestBody Perfil perfil) {
-        return new ResponseEntity<>(bankAccountService.searchByPerfil(perfil), HttpStatus.OK);
+    public ResponseEntity<List<BankAccount>> searchByProfile(@RequestBody Profile profile) {
+        return new ResponseEntity<>(bankAccountService.searchByProfile(profile), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
