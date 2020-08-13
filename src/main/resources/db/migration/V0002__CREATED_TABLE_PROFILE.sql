@@ -16,5 +16,3 @@ CREATE TABLE `profile` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-ALTER TABLE `user` ADD COLUMN `profile_id` int;
-ALTER TABLE `user` ADD CONSTRAINT `fk_user_profile` FOREIGN KEY (`profile_id`) REFERENCES profile(id);

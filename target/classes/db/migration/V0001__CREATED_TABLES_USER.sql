@@ -1,5 +1,6 @@
 CREATE TABLE `user` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `profile_id` bigint(20),
   `email` varchar(70) NOT NULL UNIQUE KEY,
   `login` varchar(20) NOT NULL UNIQUE KEY,
   `passw` varchar(255) NOT NULL,
@@ -8,6 +9,8 @@ CREATE TABLE `user` (
   `validation_date` datetime,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+ALTER TABLE `user` ADD CONSTRAINT `fk_user_profile` FOREIGN KEY (`profile_id`) REFERENCES profile(id);
 
 CREATE TABLE `role` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
