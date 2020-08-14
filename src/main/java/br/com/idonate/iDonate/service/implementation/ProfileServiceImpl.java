@@ -1,6 +1,7 @@
 package br.com.idonate.iDonate.service.implementation;
 
 import br.com.idonate.iDonate.ApplicationContextLoad;
+import br.com.idonate.iDonate.model.Campaign;
 import br.com.idonate.iDonate.model.Enum.PeopleType;
 import br.com.idonate.iDonate.model.Profile;
 import br.com.idonate.iDonate.model.User;
@@ -54,9 +55,7 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     public Profile edit(Long id, Profile profile) throws EmptyResultDataAccessException {
-        if (!profileExist(id)) {
-            throw new EmptyResultDataAccessException(1);
-        }
+        profileExist(id);
         profile.setId(id);
 
         return profileRepository.save(profile);
@@ -72,11 +71,45 @@ public class ProfileServiceImpl implements ProfileService {
         return profileRepository.findByNameContaining(name);
     }
 
-    private Boolean profileExist(Long id) {
+    @Override
+    public void recharge(Long id, Integer points) {
+        Profile profileEditing = profileExist(id);
+
+        profileEditing.setMyPoints(profileEditing.getMyPoints() + points);
+        profileRepository.save(profileEditing);
+    }
+
+    @Override
+    public void redeem(Long id, Integer points) {
+        Profile profileEditing = profileExist(id);
+
+        profileEditing.setPointsReceived(profileEditing.getPointsReceived() - points);
+        profileRepository.save(profileEditing);
+    }
+
+    @Override
+    public void donate(Long id, Integer points) {
+        Profile profileEditing = profileExist(id);
+
+        profileEditing.setMyPoints(profileEditing.getMyPoints() - points);
+        profileRepository.save(profileEditing);
+    }
+
+    @Override
+    public void receive(Long id, Integer points) {
+        Profile profileEditing = profileExist(id);
+
+        profileEditing.setPointsReceived(profileEditing.getPointsReceived() + points);
+        profileRepository.save(profileEditing);
+    }
+
+    private Profile profileExist(Long id) {
         Optional<Profile> optionalProfile = profileRepository.findById(id);
+
         if (!optionalProfile.isPresent()) {
-            return false;
+            throw new EmptyResultDataAccessException(1);
         }
-        return true;
+
+        return optionalProfile.get();
     }
 }
