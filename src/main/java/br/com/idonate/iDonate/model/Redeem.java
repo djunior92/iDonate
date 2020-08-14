@@ -43,7 +43,8 @@ public class Redeem {
     @Column(name = "value_rate")
     private BigDecimal valueRate;
 
-    @Min(0)
+    @NotNull
+    @Min(1)
     @Column(name = "points_redeemed")
     private Integer pointsRedeemed;
 
