@@ -1,5 +1,5 @@
 CREATE TABLE `redeem` (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `date_redeem` datetime NOT NULL,
   `profile_id` bigint(20) NOT NULL,
   `value_redeemed` decimal(12,2) NOT NULL,

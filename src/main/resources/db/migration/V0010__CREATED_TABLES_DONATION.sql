@@ -1,5 +1,5 @@
 CREATE TABLE `donation` (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `date_donation` datetime NOT NULL,
   `donor_id` bigint(20) NOT NULL,
   `benefited_id` bigint(20),

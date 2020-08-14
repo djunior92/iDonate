@@ -1,5 +1,5 @@
 CREATE TABLE `image` (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `date_image` datetime NOT NULL,
   `profile_id` bigint(20),
   `campaign_id` bigint(20),

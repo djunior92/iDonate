@@ -1,5 +1,5 @@
 CREATE TABLE `comment` (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `date_comment` datetime NOT NULL,
   `author_id` bigint(20) NOT NULL,
   `profile_id` bigint(20),
