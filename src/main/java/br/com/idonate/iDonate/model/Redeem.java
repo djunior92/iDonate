@@ -43,40 +43,10 @@ public class Redeem {
     @Column(name = "value_rate")
     private BigDecimal valueRate;
 
-    @NotNull
     @Min(1)
     @Column(name = "points_redeemed")
     private Integer pointsRedeemed;
 
-    @JsonIgnore
-    public Profile getProfile() {
-        return this.profile;
-    }
-
-    @JsonProperty
-    public void setProfile(Profile profile) {
-        this.profile = profile;
-    }
-
-    @JsonIgnore
-    public Quotation getQuotation() {
-        return this.quotation;
-    }
-
-    @JsonProperty
-    public void setQuotation(Quotation quotation) {
-        this.quotation = quotation;
-    }
-
-    @JsonIgnore
-    public BankAccount getBankAccount() {
-        return this.bankAccount;
-    }
-
-    @JsonProperty
-    public void setBankAccount(BankAccount bankAccount) {
-        this.bankAccount = bankAccount;
-    }
 }
 
 

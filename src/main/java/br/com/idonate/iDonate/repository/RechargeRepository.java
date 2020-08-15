@@ -1,6 +1,5 @@
 package br.com.idonate.iDonate.repository;
 
-import br.com.idonate.iDonate.model.Campaign;
 import br.com.idonate.iDonate.model.Profile;
 import br.com.idonate.iDonate.model.Recharge;
 import org.springframework.data.jpa.repository.JpaRepository;
