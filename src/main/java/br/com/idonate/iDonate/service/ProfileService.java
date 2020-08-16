@@ -1,6 +1,7 @@
 package br.com.idonate.iDonate.service;
 
 import br.com.idonate.iDonate.model.Campaign;
+import br.com.idonate.iDonate.model.Donation;
 import br.com.idonate.iDonate.model.Profile;
 import br.com.idonate.iDonate.service.exception.ProfileNotRegisteredException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -16,7 +17,6 @@ public interface ProfileService {
     List<Profile> searchByName(String name);
     void recharge(Long id, Integer points);
     void redeem(Long id, Integer points);
-    void donate(Long id, Integer points);
-    void receive(Long id, Integer points);
+    void donation(Donation donation);
 
 }

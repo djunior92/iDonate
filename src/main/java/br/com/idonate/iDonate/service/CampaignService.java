@@ -15,5 +15,6 @@ public interface CampaignService {
     Optional<Campaign> searchById(Long id);
     List<Campaign> searchByPerfil(Profile profile);
     List<Campaign> searchByName(String name);
+    void receiveCampaign(Campaign campaign, Integer points);
 
 }

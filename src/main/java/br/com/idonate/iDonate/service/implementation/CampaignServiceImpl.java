@@ -73,6 +73,12 @@ public class CampaignServiceImpl implements CampaignService {
         return campaignRepository.findByNameContaining(name);
     }
 
+    @Override
+    public void receiveCampaign(Campaign campaign, Integer points) {
+        campaign.setPointsReceived(campaign.getPointsReceived() + points);
+        campaignRepository.save(campaign);
+    }
+
     private Campaign campaignExist(Long id) {
         Optional<Campaign> optionalCampaign = campaignRepository.findById(id);
 
