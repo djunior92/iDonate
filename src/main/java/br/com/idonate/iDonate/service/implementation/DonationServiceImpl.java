@@ -29,6 +29,8 @@ public class DonationServiceImpl implements DonationService {
     @Override
     @Transactional(rollbackOn = DonationNotRegisteredException.class)
     public Donation save(Donation donation) throws DonationNotRegisteredException, CampaignAndBenefitedNotInformedException {
+
+
         if (Objects.isNull(donation.getBenefited()) && Objects.isNull(donation.getCampaign())) {
             throw new CampaignAndBenefitedNotInformedException("Não foi informado campanha e nem beneficiado para doar.");
         }

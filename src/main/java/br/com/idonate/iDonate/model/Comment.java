@@ -43,7 +43,7 @@ public class Comment {
 
     @NotNull
     @Column(name = "description")
-    @Size(max = 512)
+    @Size(min = 1, max = 512)
     private String description;
 
 

@@ -1,10 +1,10 @@
 package br.com.idonate.iDonate.service;
 
-import br.com.idonate.iDonate.model.Address;
-import br.com.idonate.iDonate.model.Profile;
+        import br.com.idonate.iDonate.model.Address;
+        import br.com.idonate.iDonate.model.Profile;
 
-import java.util.List;
-import java.util.Optional;
+        import java.util.List;
+        import java.util.Optional;
 
 public interface AddressService {
 

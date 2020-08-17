@@ -68,4 +68,7 @@ public class Profile {
     @OneToMany(mappedBy = "profile")
     private List<Campaign> campaigns;
 
+    //@OneToMany(mappedBy = "profile")
+    //private List<Comment> comment;
+
 }
