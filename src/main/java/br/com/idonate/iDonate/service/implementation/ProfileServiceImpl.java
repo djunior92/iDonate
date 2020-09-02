@@ -67,9 +67,21 @@ public class ProfileServiceImpl implements ProfileService {
         return profileRepository.save(profile);
     }
 
-    @Override
+    /*@Override
     public Optional<Profile> searchById(Long id) {
         return profileRepository.findById(id);
+    }*/
+
+    @Override
+    public Optional<Profile> searchLogin(String login) {
+        Optional<User> userOpt = ApplicationContextLoad.getApplicationContext()
+                .getBean(UserRepository.class).findByLogin(login);
+
+        if (!userOpt.isPresent()) {
+            return null;
+        }
+
+        return profileRepository.findById(userOpt.get().getId());
     }
 
     @Override

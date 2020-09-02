@@ -13,7 +13,7 @@ public interface UserService {
     User edit(Long id, User user) throws InvalidEmailException;
     void linkProfile(User user, Profile profile);
     User validate(ValidationUser validationUser) throws InvalidLoginException, LoginAlreadyValidatedException, InvalidCodValidationException;
-    Optional<User> searcheLogin(String login);
+    Optional<User> searchLogin(String login);
     void updateUnsetEmail(User user);
     void triggerEmail(User user);
 

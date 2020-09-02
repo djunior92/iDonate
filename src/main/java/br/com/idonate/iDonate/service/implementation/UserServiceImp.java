@@ -101,7 +101,7 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public Optional<User> searcheLogin(String login) {
+    public Optional<User> searchLogin(String login) {
         return userRepository.findByLogin(login);
     }
 

@@ -32,11 +32,18 @@ public class ProfileResource {
         return new ResponseEntity<>(savedProfile, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{id}")
+
+    @GetMapping("/{login}")
+    public ResponseEntity<Profile> searchByLogin(@PathVariable String login) {
+        Optional<Profile> profile = profileService.searchLogin(login);
+        return (profile.isPresent() ? ResponseEntity.ok(profile.get()) : ResponseEntity.notFound().build());
+    }
+
+    /*@GetMapping("/{id}")
     public ResponseEntity<Profile> searchById(@PathVariable Long id) {
         Optional<Profile> profile = profileService.searchById(id);
         return (profile.isPresent() ? ResponseEntity.ok(profile.get()) : ResponseEntity.notFound().build());
-    }
+    }*/
 
     @GetMapping("/search/{name}")
     public ResponseEntity<List<Profile>> searchByName(@PathVariable String name) {

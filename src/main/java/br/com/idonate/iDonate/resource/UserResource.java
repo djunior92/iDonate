@@ -31,7 +31,7 @@ public class UserResource {
 
     @GetMapping("/{login}")
     public ResponseEntity<User> searchByLogin(@PathVariable String login) {
-        Optional<User> user = userService.searcheLogin(login);
+        Optional<User> user = userService.searchLogin(login);
         return (user.isPresent() ? ResponseEntity.ok(user.get()) : ResponseEntity.notFound().build());
     }
 

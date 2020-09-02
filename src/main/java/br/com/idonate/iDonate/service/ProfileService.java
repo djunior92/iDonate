@@ -13,7 +13,8 @@ public interface ProfileService {
 
     Profile save(String login, Profile profile) throws ProfileNotRegisteredException;
     Profile edit(Long id, Profile profile) throws EmptyResultDataAccessException;
-    Optional<Profile> searchById(Long id);
+    //Optional<Profile> searchById(Long id);
+    Optional<Profile> searchLogin(String login);
     List<Profile> searchByName(String name);
     void recharge(Long id, Integer points);
     void redeem(Long id, Integer points);
