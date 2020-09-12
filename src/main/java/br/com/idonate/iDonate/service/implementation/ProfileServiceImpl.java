@@ -86,6 +86,7 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     public List<Profile> searchByName(String name) {
+
         return profileRepository.findByNameContaining(name);
     }
 

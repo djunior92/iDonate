@@ -36,7 +36,7 @@ public class ProfileResource {
     @GetMapping("/{login}")
     public ResponseEntity<Profile> searchByLogin(@PathVariable String login) {
         Optional<Profile> profile = profileService.searchLogin(login);
-        return (profile.isPresent() ? ResponseEntity.ok(profile.get()) : ResponseEntity.notFound().build());
+        return (profile.isPresent() ? ResponseEntity.ok(profile.get()) : ResponseEntity.ok(null));
     }
 
     /*@GetMapping("/{id}")
