@@ -1,5 +1,8 @@
 package br.com.idonate.iDonate.service.implementation;
 
+import br.com.idonate.iDonate.apicielo.payload.CreatingTokenizedCardRequest;
+import br.com.idonate.iDonate.apicielo.payload.SimpleTransactionRequest;
+import br.com.idonate.iDonate.apicielo.service.ApiCieloService;
 import br.com.idonate.iDonate.model.Profile;
 import br.com.idonate.iDonate.model.Recharge;
 import br.com.idonate.iDonate.repository.RechargeRepository;
@@ -29,6 +32,9 @@ public class RechargeServiceImpl implements RechargeService {
     @Autowired
     QuotationService quotationService;
 
+    @Autowired
+    ApiCieloService apiCieloService;
+
     @Override
     @Transactional(rollbackOn = RechargeNotRegisteredException.class)
     public Recharge save(Recharge recharge) throws RechargeNotRegisteredException {
@@ -37,6 +43,8 @@ public class RechargeServiceImpl implements RechargeService {
             recharge.setValueRate(BigDecimal.ZERO);
             recharge.setQuotation(quotationService.searchOpen().get());
             recharge.setPointsRecharged(calculatePoints(recharge));
+
+            //String cardToken = apiCieloService.paymentRequest(SimpleTransactionRequest.of(recharge));
 
             profileService.recharge(recharge.getProfile().getId(), recharge.getPointsRecharged());
 
