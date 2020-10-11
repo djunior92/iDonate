@@ -6,6 +6,7 @@ import br.com.idonate.iDonate.model.CreditCard;
 import br.com.idonate.iDonate.model.Enum.CreditCardStatus;
 import br.com.idonate.iDonate.model.Profile;
 import br.com.idonate.iDonate.repository.CreditCardRepository;
+import br.com.idonate.iDonate.repository.ProfileRepository;
 import br.com.idonate.iDonate.service.CreditCardService;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -21,6 +22,9 @@ public class CreditCardServiceImpl implements CreditCardService {
 
     @Autowired
     CreditCardRepository creditCardRepository;
+
+    @Autowired
+    ProfileRepository profileRepository;
 
     @Autowired
     ApiCieloService apiCieloService;
@@ -63,7 +67,9 @@ public class CreditCardServiceImpl implements CreditCardService {
     }
 
     @Override
-    public List<CreditCard> searchByProfile(Profile profile) {
-        return creditCardRepository.findByProfile(profile);
+    public List<CreditCard> searchByProfile(Long id) {
+
+        Profile optionalCreditCard = profileRepository.findById(id).get();
+        return creditCardRepository.findByProfile(optionalCreditCard);
     }
 }

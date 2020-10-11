@@ -38,9 +38,10 @@ public class CreditCardResource {
         return (creditCard.isPresent() ? ResponseEntity.ok(creditCard.get()) : ResponseEntity.notFound().build());
     }
 
-    @GetMapping
-    public ResponseEntity<List<CreditCard>> searchByProfile(@RequestBody Profile profile) {
-        return new ResponseEntity<>(creditCardService.searchByProfile(profile), HttpStatus.OK);
+    @GetMapping("/profile/{id}")
+    //public ResponseEntity<List<CreditCard>> searchByProfile(@RequestBody Profile profile) {
+    public ResponseEntity<List<CreditCard>> searchByProfile(@PathVariable Long id) {
+        return new ResponseEntity<>(creditCardService.searchByProfile(id), HttpStatus.OK);
     }
 
 }

@@ -11,6 +11,6 @@ public interface CreditCardService {
     CreditCard save(CreditCard creditCard) throws Exception;
     CreditCard inactive(Long id);
     Optional<CreditCard> searchById(Long id);
-    List<CreditCard> searchByProfile(Profile profile);
+    List<CreditCard> searchByProfile(Long id);
 
 }
