@@ -38,9 +38,10 @@ public class BankAccountResource {
         return (bankAccount.isPresent() ? ResponseEntity.ok(bankAccount.get()) : ResponseEntity.notFound().build());
     }
 
-    @GetMapping
-    public ResponseEntity<List<BankAccount>> searchByProfile(@RequestBody Profile profile) {
-        return new ResponseEntity<>(bankAccountService.searchByProfile(profile), HttpStatus.OK);
+    @GetMapping("/profile/{id}")
+    //public ResponseEntity<List<BankAccount>> searchByProfile(@RequestBody Profile profile) {
+    public ResponseEntity<List<BankAccount>> searchByProfile(@PathVariable Long id) {
+        return new ResponseEntity<>(bankAccountService.searchByProfile(id), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

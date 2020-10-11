@@ -12,5 +12,5 @@ public interface BankAccountService {
     BankAccount edit(Long id, BankAccount bankAccount);
     void delete(Long id);
     Optional<BankAccount> searchById(Long id);
-    List<BankAccount> searchByProfile(Profile profile);
+    List<BankAccount> searchByProfile(Long id);
 }

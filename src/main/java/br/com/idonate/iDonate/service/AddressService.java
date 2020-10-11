@@ -12,5 +12,5 @@ public interface AddressService {
     Address edit(Long id, Address address);
     void delete(Long id);
     Optional<Address> searchById(Long id);
-    List<Address> searchByProfile(Profile profile);
+    List<Address> searchByProfile(Long id);
 }

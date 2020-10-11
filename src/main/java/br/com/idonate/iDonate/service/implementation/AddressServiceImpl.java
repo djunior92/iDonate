@@ -4,6 +4,7 @@ package br.com.idonate.iDonate.service.implementation;
 import br.com.idonate.iDonate.model.Address;
 import br.com.idonate.iDonate.model.Profile;
 import br.com.idonate.iDonate.repository.AddressRepository;
+import br.com.idonate.iDonate.repository.ProfileRepository;
 import br.com.idonate.iDonate.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -19,6 +20,8 @@ public class AddressServiceImpl implements AddressService {
     @Autowired
     AddressRepository addressRepository;
 
+    @Autowired
+    ProfileRepository profileRepository;
 
     @Override
     public Address save(Address address){
@@ -28,12 +31,22 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public Address edit(Long id, Address address) {
-        if (!adrressExist(id)) {
+        Optional<Address> optionalAddress = addressRepository.findById(id);
+
+        if (!optionalAddress.isPresent()) {
             throw new EmptyResultDataAccessException(1);
         }
-        address.setId(id);
 
-        return addressRepository.save(address);
+        Address addressSaved = optionalAddress.get();
+        addressSaved.setStreetAddress(address.getStreetAddress());
+        addressSaved.setNumberAddress(address.getNumberAddress());
+        addressSaved.setComplementAddress(address.getComplementAddress());
+        addressSaved.setCep(address.getCep());
+        addressSaved.setNeighborhood(address.getNeighborhood());
+        addressSaved.setCity(address.getCity());
+        addressSaved.setUf(address.getUf());
+
+        return addressRepository.save(addressSaved);
     }
 
     @Override
@@ -47,8 +60,10 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public List<Address> searchByProfile(Profile profile) {
-        return addressRepository.findByProfile(profile);
+    public List<Address> searchByProfile(Long id) {
+
+        Profile optionalAddress = profileRepository.findById(id).get();
+        return addressRepository.findByProfile(optionalAddress);
     }
 
     private Boolean adrressExist(Long id) {

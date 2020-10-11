@@ -4,6 +4,7 @@ package br.com.idonate.iDonate.service.implementation;
 import br.com.idonate.iDonate.model.BankAccount;
 import br.com.idonate.iDonate.model.Profile;
 import br.com.idonate.iDonate.repository.BankAccountRepository;
+import br.com.idonate.iDonate.repository.ProfileRepository;
 import br.com.idonate.iDonate.service.BankAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -19,6 +20,8 @@ public class BankAccountServiceImpl implements BankAccountService {
     @Autowired
     BankAccountRepository bankAccountRepository;
 
+    @Autowired
+    ProfileRepository profileRepository;
 
     @Override
     public BankAccount save(BankAccount bankAccount){
@@ -58,8 +61,11 @@ public class BankAccountServiceImpl implements BankAccountService {
 
 
     @Override
-    public List<BankAccount> searchByProfile(Profile profile) {
-        return bankAccountRepository.findByProfile(profile);
+    public List<BankAccount> searchByProfile(Long id) {
+
+        //return bankAccountRepository.findByProfile(profile);
+        Profile optionalBankAccount = profileRepository.findById(id).get();
+        return bankAccountRepository.findByProfile(optionalBankAccount);
     }
 
 }

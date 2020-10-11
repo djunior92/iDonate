@@ -37,9 +37,10 @@ public class AddressResource {
         return (address.isPresent() ? ResponseEntity.ok(address.get()) : ResponseEntity.notFound().build());
     }
 
-    @GetMapping
-    public ResponseEntity<List<Address>> searchByProfile(@RequestBody Profile profile) {
-        return new ResponseEntity<>(addressService.searchByProfile(profile), HttpStatus.OK);
+    @GetMapping("/profile/{id}")
+    //public ResponseEntity<List<Address>> searchByProfile(@RequestBody Profile profile) {
+    public ResponseEntity<List<Address>> searchByProfile(@PathVariable Long id) {
+        return new ResponseEntity<>(addressService.searchByProfile(id), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
