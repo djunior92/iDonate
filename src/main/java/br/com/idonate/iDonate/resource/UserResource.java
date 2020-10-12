@@ -35,6 +35,13 @@ public class UserResource {
         return (user.isPresent() ? ResponseEntity.ok(user.get()) : ResponseEntity.notFound().build());
     }
 
+    /*@GetMapping("/id/{id}")
+    public ResponseEntity<User> searchById(@PathVariable Long id) {
+        Optional<User> user = userService.searchId(id);
+        return (user.isPresent() ? ResponseEntity.ok(user.get()) : ResponseEntity.notFound().build());
+    }*/
+
+
     @PutMapping("/resendemail/{id}")
     public ResponseEntity<User> resendEmail(@PathVariable Long id, @Valid @RequestBody User user)
             throws InvalidEmailException {

@@ -2,6 +2,7 @@ package br.com.idonate.iDonate.model;
 
 import br.com.idonate.iDonate.model.Enum.PeopleType;
 import br.com.idonate.iDonate.model.Enum.StatusUser;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;

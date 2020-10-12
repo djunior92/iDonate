@@ -1,8 +1,10 @@
 package br.com.idonate.iDonate.resource;
 
 import br.com.idonate.iDonate.model.Profile;
+import br.com.idonate.iDonate.model.view.ProfileView;
 import br.com.idonate.iDonate.service.ProfileService;
 import br.com.idonate.iDonate.service.exception.ProfileNotRegisteredException;
+import com.sun.mail.iap.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -39,16 +41,23 @@ public class ProfileResource {
         return (profile.isPresent() ? ResponseEntity.ok(profile.get()) : ResponseEntity.ok(null));
     }
 
-    /*@GetMapping("/{id}")
-    public ResponseEntity<Profile> searchById(@PathVariable Long id) {
-        Optional<Profile> profile = profileService.searchById(id);
-        return (profile.isPresent() ? ResponseEntity.ok(profile.get()) : ResponseEntity.notFound().build());
-    }*/
+    @GetMapping("id/{id}")
+    public ResponseEntity<ProfileView> searchById(@PathVariable Long id) {
+        ProfileView profile = profileService.searchById(id);
+        //return (profile.isPresent() ? ResponseEntity.ok(profile.get()) : ResponseEntity.notFound().build());
+        return ResponseEntity.ok(profile);
+    }
 
     @GetMapping("/search/{name}")
     public ResponseEntity<List<Profile>> searchByName(@PathVariable String name) {
         List<Profile> profiles = profileService.searchByName(name);
         return ResponseEntity.ok(profiles);
     }
+
+    /*@GetMapping("/id/{id}")
+    public ResponseEntity<Profile> searchById(@PathVariable Long id) {
+        Optional<Profile> profile = profileService.searchById(id);
+        return (profile.isPresent() ? ResponseEntity.ok(profile.get()) : ResponseEntity.notFound().build());
+    }*/
 
 }

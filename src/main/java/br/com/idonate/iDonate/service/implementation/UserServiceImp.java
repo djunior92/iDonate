@@ -70,6 +70,7 @@ public class UserServiceImp implements UserService {
         return userRepository.save(userSaved);
     }
 
+
     @Override
     public void linkProfile(User user, Profile profile) {
         user.setProfile(profile);
@@ -165,5 +166,7 @@ public class UserServiceImp implements UserService {
         Integer resultRandom = random.nextInt(999999) + 1;
         return StringUtils.leftPad(resultRandom.toString(), 6, "0");
     }
+
+
 
 }

@@ -3,6 +3,7 @@ package br.com.idonate.iDonate.service;
 import br.com.idonate.iDonate.model.Campaign;
 import br.com.idonate.iDonate.model.Donation;
 import br.com.idonate.iDonate.model.Profile;
+import br.com.idonate.iDonate.model.view.ProfileView;
 import br.com.idonate.iDonate.service.exception.ProfileNotRegisteredException;
 import org.springframework.dao.EmptyResultDataAccessException;
 
@@ -13,7 +14,7 @@ public interface ProfileService {
 
     Profile save(String login, Profile profile) throws ProfileNotRegisteredException;
     Profile edit(Long id, Profile profile) throws EmptyResultDataAccessException;
-    //Optional<Profile> searchById(Long id);
+    ProfileView searchById(Long id);
     Optional<Profile> searchLogin(String login);
     List<Profile> searchByName(String name);
     void recharge(Long id, Integer points);

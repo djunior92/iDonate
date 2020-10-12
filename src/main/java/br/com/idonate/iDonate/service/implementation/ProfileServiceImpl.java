@@ -6,6 +6,7 @@ import br.com.idonate.iDonate.model.Donation;
 import br.com.idonate.iDonate.model.Enum.PeopleType;
 import br.com.idonate.iDonate.model.Profile;
 import br.com.idonate.iDonate.model.User;
+import br.com.idonate.iDonate.model.view.ProfileView;
 import br.com.idonate.iDonate.repository.ProfileRepository;
 import br.com.idonate.iDonate.repository.UserRepository;
 import br.com.idonate.iDonate.service.CampaignService;
@@ -67,15 +68,41 @@ public class ProfileServiceImpl implements ProfileService {
         return profileRepository.save(profile);
     }
 
-    /*@Override
-    public Optional<Profile> searchById(Long id) {
-        return profileRepository.findById(id);
-    }*/
+    @Override
+    public ProfileView searchById(Long id) {
+        Optional<User> userOpt = ApplicationContextLoad.getApplicationContext().getBean(UserRepository.class).findById(id);
+
+        if (!userOpt.isPresent()) {
+            throw new EmptyResultDataAccessException(1);
+        }
+
+        Optional<Profile> profileOpt = profileRepository.findById(userOpt.get().getId());
+
+        if (!profileOpt.isPresent()) {
+            throw new EmptyResultDataAccessException(1);
+        }
+
+        ProfileView profileView = new ProfileView();
+        profileView.id = profileOpt.get().getId();
+        profileView.login = userOpt.get().getLogin();
+        profileView.phone = profileOpt.get().getPhone();
+        profileView.name = profileOpt.get().getName();
+        profileView.image = profileOpt.get().getImage();
+        profileView.registrationDate = profileOpt.get().getRegistrationDate();
+        profileView.facebook = profileOpt.get().getFacebook();
+        profileView.instagram = profileOpt.get().getInstagram();
+        profileView.youtube = profileOpt.get().getYoutube();
+        profileView.website = profileOpt.get().getWebsite();
+        profileView.peopleType = profileOpt.get().getPeopleType();
+        profileView.document = profileOpt.get().getDocument();
+        profileView.dateBirth = profileOpt.get().getDateBirth();
+
+        return profileView;
+    }
 
     @Override
     public Optional<Profile> searchLogin(String login) {
-        Optional<User> userOpt = ApplicationContextLoad.getApplicationContext()
-                .getBean(UserRepository.class).findByLogin(login);
+        Optional<User> userOpt = ApplicationContextLoad.getApplicationContext().getBean(UserRepository.class).findByLogin(login);
 
         if (!userOpt.isPresent()) {
             return null;

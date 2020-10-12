@@ -14,6 +14,7 @@ public interface UserService {
     void linkProfile(User user, Profile profile);
     User validate(ValidationUser validationUser) throws InvalidLoginException, LoginAlreadyValidatedException, InvalidCodValidationException;
     Optional<User> searchLogin(String login);
+    //Optional<User> searchId(Long id);
     void updateUnsetEmail(User user);
     void triggerEmail(User user);
 
