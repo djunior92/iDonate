@@ -96,6 +96,7 @@ public class ProfileServiceImpl implements ProfileService {
         profileView.peopleType = profileOpt.get().getPeopleType();
         profileView.document = profileOpt.get().getDocument();
         profileView.dateBirth = profileOpt.get().getDateBirth();
+        profileView.description = profileOpt.get().getDescription();
 
         return profileView;
     }

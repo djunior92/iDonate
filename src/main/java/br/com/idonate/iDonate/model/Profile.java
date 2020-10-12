@@ -60,6 +60,10 @@ public class Profile {
     @Column(name = "date_birth")
     private LocalDateTime dateBirth;
 
+    @NotNull
+    @Size(min = 2, max = 512)
+    private String description;
+
     @OneToMany(mappedBy = "profile")
     private List<Address> addresses;
 

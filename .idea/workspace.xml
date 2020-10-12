@@ -2,15 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="55eb4145-e5a8-4b14-b2f5-1dd83f68d7d5" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/view/ProfileView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/CreditCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/CreditCard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/Profile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/Profile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/resource/ProfileResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/resource/ProfileResource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/resource/UserResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/resource/UserResource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/ProfileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/ProfileService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/view/ProfileView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/view/ProfileView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/implementation/ProfileServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/implementation/ProfileServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/implementation/UserServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/implementation/UserServiceImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/db/migration/V0002__CREATED_TABLE_PROFILE.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V0002__CREATED_TABLE_PROFILE.sql" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -30,29 +26,8 @@
       <file leaf-file-name="ProfileResource.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/resource/ProfileResource.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="317">
-              <caret line="49" lean-forward="true" selection-start-line="49" selection-end-line="49" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ProfileServiceImpl.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/implementation/ProfileServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="81" column="56" lean-forward="true" selection-start-line="81" selection-start-column="56" selection-end-line="81" selection-end-column="56" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BankAccountServiceImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/implementation/BankAccountServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
-              <caret line="60" lean-forward="true" selection-start-line="60" selection-end-line="61" />
+            <state relative-caret-position="66">
+              <caret line="39" column="56" selection-start-line="39" selection-start-column="56" selection-end-line="39" selection-end-column="56" />
             </state>
           </provider>
         </entry>
@@ -60,17 +35,26 @@
       <file leaf-file-name="ProfileService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/ProfileService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="16" column="15" selection-start-line="16" selection-start-column="15" selection-end-line="16" selection-end-column="15" />
+            <state relative-caret-position="153">
+              <caret line="17" column="33" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="33" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ProfileView.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/view/ProfileView.java">
+      <file leaf-file-name="UserResource.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/resource/UserResource.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="338">
-              <caret line="47" column="10" selection-start-line="47" selection-start-column="10" selection-end-line="47" selection-end-column="10" />
+            <state relative-caret-position="187">
+              <caret line="24" column="28" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProfileServiceImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/implementation/ProfileServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="132">
+              <caret line="109" column="9" lean-forward="true" selection-start-line="109" selection-start-column="9" selection-end-line="109" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -78,32 +62,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Profile.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/Profile.java">
+      <file leaf-file-name="UserServiceImp.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/implementation/UserServiceImp.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2">
-              <caret line="38" lean-forward="true" selection-start-line="38" selection-end-line="38" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BankAccount.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/BankAccount.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
-              <caret line="49" column="4" selection-start-line="49" selection-start-column="4" selection-end-line="49" selection-end-column="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ValidationUser.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/view/ValidationUser.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="5" column="41" lean-forward="true" selection-start-line="5" selection-start-column="41" selection-end-line="5" selection-end-column="41" />
+            <state relative-caret-position="34">
+              <caret line="80" column="16" selection-start-line="80" selection-start-column="16" selection-end-line="80" selection-end-column="16" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#3806#3807#0" expanded="true" />
+                <element signature="e#3862#3863#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="V0002__CREATED_TABLE_PROFILE.sql" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/db/migration/V0002__CREATED_TABLE_PROFILE.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="15" column="14" selection-start-line="15" selection-start-column="3" selection-end-line="15" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -120,10 +96,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Cotacao</find>
-      <find>cotacao</find>
-      <find>profile</find>
-      <find>perfil</find>
       <find>Perfil</find>
       <find>poin</find>
       <find>points_redeemed</find>
@@ -139,7 +111,6 @@
       <find>optional</find>
       <find>searchByLogin</find>
       <find>Login</find>
-      <find>searchLogin</find>
       <find>ApiCielo</find>
       <find>ExpirationDate</find>
       <find>CreatingTokenizedCardRequest</find>
@@ -149,7 +120,12 @@
       <find>new</find>
       <find>codValidation</find>
       <find>login</find>
+      <find>searchLogin</find>
       <find>search</find>
+      <find>validation</find>
+      <find>validate</find>
+      <find>findById</find>
+      <find>VALIDADO</find>
     </findStrings>
     <replaceStrings>
       <replace>Quotation</replace>
@@ -173,7 +149,6 @@
         <option value="$PROJECT_DIR$/src/main/resources/db/migration/V0002__CREATED_TABLE_PERFIL.sql" />
         <option value="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/Enum/StatusUser.java" />
         <option value="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/Enum/PeopleType.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/db/migration/V0002__CREATED_TABLE_PROFILE.sql" />
         <option value="$PROJECT_DIR$/src/main/resources/db/migration/V0001__CREATED_TABLES_USER.sql" />
         <option value="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/Quotation.java" />
         <option value="$PROJECT_DIR$/src/main/resources/db/migration/V0008__CREATED_TABLES_REDEEM.sql" />
@@ -201,7 +176,6 @@
         <option value="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/implementation/BankAccountServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/resource/AddressResource.java" />
         <option value="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/resource/BankAccountResource.java" />
-        <option value="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/CreditCard.java" />
         <option value="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/Enum/BrandCard.java" />
         <option value="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/CreditCardService.java" />
         <option value="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/resource/CreditCardResource.java" />
@@ -209,12 +183,14 @@
         <option value="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/implementation/UserServiceImp.java" />
         <option value="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/UserService.java" />
         <option value="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/resource/UserResource.java" />
-        <option value="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/Profile.java" />
         <option value="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/view/ValidationUser.java" />
         <option value="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/ProfileService.java" />
         <option value="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/resource/ProfileResource.java" />
-        <option value="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/view/ProfileView.java" />
+        <option value="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/Profile.java" />
         <option value="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/implementation/ProfileServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/view/ProfileView.java" />
+        <option value="$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/CreditCard.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/db/migration/V0002__CREATED_TABLE_PROFILE.sql" />
       </list>
     </option>
   </component>
@@ -288,6 +264,16 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="iDonate" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+              <item name="Enum" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="iDonate" type="b2602c69:ProjectViewProjectNode" />
+              <item name="iDonate" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="iDonate" type="462c0819:PsiDirectoryNode" />
               <item name="resource" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -315,6 +301,14 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="iDonate" type="b2602c69:ProjectViewProjectNode" />
+              <item name="iDonate" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="migration" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -469,7 +463,7 @@
       <workItem from="1599872022635" duration="1622000" />
       <workItem from="1602441103276" duration="6165000" />
       <workItem from="1602457752190" duration="1794000" />
-      <workItem from="1602516053378" duration="9244000" />
+      <workItem from="1602516053378" duration="13000000" />
     </task>
     <task id="LOCAL-00001" summary="Conclusão do perfil.">
       <created>1596762760930</created>
@@ -503,11 +497,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="54534000" />
+    <option name="totallyTimeSpent" value="58290000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
@@ -527,7 +520,7 @@
       <window_info anchor="bottom" id="Java Enterprise" order="7" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.35897437" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.35897437" />
       <window_info anchor="bottom" id="Spring" order="7" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2624161" />
@@ -649,39 +642,17 @@
           <properties />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/implementation/ProfileServiceImpl.java</url>
+          <line>111</line>
+          <properties />
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="6" />
+      <option name="time" value="8" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/DonationService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/resource/DonationResource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="26" column="93" lean-forward="true" selection-start-line="26" selection-start-column="12" selection-end-line="26" selection-end-column="93" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/exception/DonationNotRegisteredException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/repository/DonateRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/implementation/DonationServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="69">
@@ -829,13 +800,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/CreditCard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-105">
-          <caret line="35" column="32" selection-start-line="35" selection-start-column="20" selection-end-line="35" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/Enum/CreditCardStatus.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -934,20 +898,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/resource/UserResource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="37" selection-start-line="37" selection-end-line="41" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/implementation/UserServiceImp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1125">
-          <caret line="71" selection-start-line="71" selection-end-line="71" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/User.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -955,48 +905,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/ProfileService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="16" column="15" selection-start-line="16" selection-start-column="15" selection-end-line="16" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/resource/ProfileResource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
-          <caret line="49" lean-forward="true" selection-start-line="49" selection-end-line="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/BankAccount.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="49" column="4" selection-start-line="49" selection-start-column="4" selection-end-line="49" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/view/ValidationUser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="5" column="41" lean-forward="true" selection-start-line="5" selection-start-column="41" selection-end-line="5" selection-end-column="41" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/Profile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2">
-          <caret line="38" lean-forward="true" selection-start-line="38" selection-end-line="38" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/view/ProfileView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="47" column="10" selection-start-line="47" selection-start-column="10" selection-end-line="47" selection-end-column="10" />
+        <state relative-caret-position="351">
+          <caret line="49" column="12" selection-start-line="49" selection-start-column="12" selection-end-line="49" selection-end-column="12" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1010,13 +922,104 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/CreditCard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="249">
+          <caret line="66" column="5" selection-start-line="66" selection-start-column="5" selection-end-line="66" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/BankAccount.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="49" column="4" selection-start-line="49" selection-start-column="4" selection-end-line="49" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/Profile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="64" column="30" selection-start-line="64" selection-start-column="19" selection-end-line="64" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/resource/ProfileResource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="39" column="56" selection-start-line="39" selection-start-column="56" selection-end-line="39" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-aop/5.2.8.RELEASE/spring-aop-5.2.8.RELEASE.jar!/org/springframework/aop/framework/CglibAopProxy.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="166">
+          <caret line="468" column="43" lean-forward="true" selection-start-line="468" selection-start-column="43" selection-end-line="468" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/5.2.8.RELEASE/spring-core-5.2.8.RELEASE.jar!/org/springframework/cglib/proxy/MethodProxy.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="166">
+          <caret line="105" selection-start-line="105" selection-end-line="105" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/implementation/ProfileServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="81" column="56" lean-forward="true" selection-start-line="81" selection-start-column="56" selection-end-line="81" selection-end-column="56" />
+        <state relative-caret-position="132">
+          <caret line="109" column="9" lean-forward="true" selection-start-line="109" selection-start-column="9" selection-end-line="109" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/ProfileService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="17" column="33" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/resource/UserResource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="24" column="28" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/view/ValidationUser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="32" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/model/Enum/StatusUser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="43" lean-forward="true" selection-start-line="6" selection-start-column="43" selection-end-line="6" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/idonate/iDonate/service/implementation/UserServiceImp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="80" column="16" selection-start-line="80" selection-start-column="16" selection-end-line="80" selection-end-column="16" />
+          <folding>
+            <element signature="e#3806#3807#0" expanded="true" />
+            <element signature="e#3862#3863#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/db/migration/V0002__CREATED_TABLE_PROFILE.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="14" selection-start-line="15" selection-start-column="3" selection-end-line="15" selection-end-column="14" />
         </state>
       </provider>
     </entry>

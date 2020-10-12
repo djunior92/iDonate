@@ -47,4 +47,8 @@ public class ProfileView {
 
     public LocalDateTime dateBirth;
 
+    @NotNull
+    public String description;
+
+
 }
