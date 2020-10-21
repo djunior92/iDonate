@@ -54,10 +54,4 @@ public class ProfileResource {
         return ResponseEntity.ok(profiles);
     }
 
-    /*@GetMapping("/id/{id}")
-    public ResponseEntity<Profile> searchById(@PathVariable Long id) {
-        Optional<Profile> profile = profileService.searchById(id);
-        return (profile.isPresent() ? ResponseEntity.ok(profile.get()) : ResponseEntity.notFound().build());
-    }*/
-
 }

@@ -44,7 +44,7 @@ public class CampaignResource {
     }
 
     @GetMapping
-    public ResponseEntity<List<Campaign>> searchByPerfil(@RequestBody Profile profile) {
+    public ResponseEntity<List<Campaign>> searchByProfile(@RequestBody Profile profile) {
         return new ResponseEntity<>(campaignService.searchByPerfil(profile), HttpStatus.OK);
     }
 
