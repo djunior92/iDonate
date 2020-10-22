@@ -1,14 +1,13 @@
-CREATE TABLE `address` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `profile_id` bigint(20) NOT NULL,
-  `street_address` varchar(100) NOT NULL,
-  `number_address` varchar(6) NOT NULL,
-  `complement_address` varchar(50),
-  `cep` varchar(10) NOT NULL,
-  `neighborhood` varchar(50) NOT NULL,
-  `city` varchar(100) NOT NULL,
-  `uf` char(2) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE address (
+  id SERIAL PRIMARY KEY NOT NULL,
+  profile_id bigint NOT NULL,
+  street_address varchar(100) NOT NULL,
+  number_address varchar(6) NOT NULL,
+  complement_address varchar(50),
+  cep varchar(10) NOT NULL,
+  neighborhood varchar(50) NOT NULL,
+  city varchar(100) NOT NULL,
+  uf char(2) NOT NULL
+);
 
-ALTER TABLE `address` ADD CONSTRAINT `fk_address_profile` FOREIGN KEY (`profile_id`) REFERENCES profile(id);
+ALTER TABLE address ADD CONSTRAINT fk_address_profile FOREIGN KEY (profile_id) REFERENCES profile(id);

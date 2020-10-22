@@ -1,1 +1,1 @@
-ALTER TABLE `user` ADD COLUMN `cod_validation` varchar(6);
+ALTER TABLE user_system ADD COLUMN cod_validation varchar(6);

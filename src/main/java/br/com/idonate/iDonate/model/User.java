@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
-@Entity(name = "user")
+@Entity(name = "USER_SYSTEM")
 @Data
 @EqualsAndHashCode(callSuper = false, of = {"id"})
 @ToString(of = {"id"})

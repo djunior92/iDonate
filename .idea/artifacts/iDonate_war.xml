@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="iDonate:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="iDonate-0.0.1-SNAPSHOT.war">
-      <element id="artifact" artifact-name="iDonate:war exploded" />
-    </root>
-  </artifact>
-</component>
