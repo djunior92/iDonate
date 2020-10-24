@@ -13,7 +13,7 @@ public interface CampaignService {
     void shutdown(Long id);
     Campaign addPoints(Long id, Integer points);
     Optional<Campaign> searchById(Long id);
-    List<Campaign> searchByPerfil(Profile profile);
+    List<Campaign> searchByPerfil(Long id);
     List<Campaign> searchByName(String name);
     void receiveCampaign(Campaign campaign, Integer points);
 

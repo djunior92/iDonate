@@ -3,6 +3,7 @@ package br.com.idonate.iDonate.service.implementation;
 import br.com.idonate.iDonate.model.Campaign;
 import br.com.idonate.iDonate.model.Profile;
 import br.com.idonate.iDonate.repository.CampaignRepository;
+import br.com.idonate.iDonate.repository.ProfileRepository;
 import br.com.idonate.iDonate.service.CampaignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -18,6 +19,9 @@ public class CampaignServiceImpl implements CampaignService {
 
     @Autowired
     CampaignRepository campaignRepository;
+
+    @Autowired
+    ProfileRepository profileRepository;
 
     @Override
     public Campaign save(Campaign campaign) {
@@ -64,9 +68,12 @@ public class CampaignServiceImpl implements CampaignService {
     }
 
     @Override
-    public List<Campaign> searchByPerfil(Profile profile) {
-        return campaignRepository.findByProfile(profile);
+    public List<Campaign> searchByPerfil(Long id) {
+        Profile optionalBankAccount = profileRepository.findById(id).get();
+        return campaignRepository.findByProfile(optionalBankAccount);
     }
+
+
 
     @Override
     public List<Campaign> searchByName(String name) {

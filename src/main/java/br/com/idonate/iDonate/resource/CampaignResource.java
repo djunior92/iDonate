@@ -43,9 +43,9 @@ public class CampaignResource {
         return (campaign.isPresent() ? ResponseEntity.ok(campaign.get()) : ResponseEntity.notFound().build());
     }
 
-    @GetMapping
-    public ResponseEntity<List<Campaign>> searchByProfile(@RequestBody Profile profile) {
-        return new ResponseEntity<>(campaignService.searchByPerfil(profile), HttpStatus.OK);
+    @GetMapping("/profile/{id}")
+    public ResponseEntity<List<Campaign>> searchByProfile(@PathVariable Long id) {
+        return new ResponseEntity<>(campaignService.searchByPerfil(id), HttpStatus.OK);
     }
 
     @GetMapping("/search/{name}")
