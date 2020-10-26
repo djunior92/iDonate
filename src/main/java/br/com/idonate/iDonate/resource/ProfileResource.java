@@ -4,9 +4,8 @@ import br.com.idonate.iDonate.model.Profile;
 import br.com.idonate.iDonate.model.view.ProfileView;
 import br.com.idonate.iDonate.service.ProfileService;
 import br.com.idonate.iDonate.service.exception.ProfileNotRegisteredException;
-import com.sun.mail.iap.Response;
+import br.com.idonate.iDonate.service.exception.RegisterNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,28 +22,26 @@ public class ProfileResource {
     ProfileService profileService;
 
     @PutMapping("/{id}")
-    public ResponseEntity<Profile> edit(@PathVariable Long id, @Valid @RequestBody Profile profile) throws EmptyResultDataAccessException {
+    public ResponseEntity<Profile> edit(@PathVariable Long id, @Valid @RequestBody Profile profile) throws RegisterNotFoundException {
         Profile updateProfile = profileService.edit(id, profile);
         return new ResponseEntity<>(updateProfile, HttpStatus.OK);
     }
 
     @PostMapping("/{login}")
-    public ResponseEntity<Profile> save(@PathVariable String login, @Valid @RequestBody Profile profile) throws ProfileNotRegisteredException {
+    public ResponseEntity<Profile> save(@PathVariable String login, @Valid @RequestBody Profile profile) throws ProfileNotRegisteredException, RegisterNotFoundException {
         Profile savedProfile = profileService.save(login, profile);
         return new ResponseEntity<>(savedProfile, HttpStatus.CREATED);
     }
 
-
     @GetMapping("/{login}")
-    public ResponseEntity<Profile> searchByLogin(@PathVariable String login) {
+    public ResponseEntity<Profile> searchByLogin(@PathVariable String login) throws RegisterNotFoundException {
         Optional<Profile> profile = profileService.searchLogin(login);
-        return (profile.isPresent() ? ResponseEntity.ok(profile.get()) : ResponseEntity.ok(null));
+        return (profile.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build()));
     }
 
     @GetMapping("id/{id}")
-    public ResponseEntity<ProfileView> searchById(@PathVariable Long id) {
+    public ResponseEntity<ProfileView> searchById(@PathVariable Long id) throws RegisterNotFoundException {
         ProfileView profile = profileService.searchById(id);
-        //return (profile.isPresent() ? ResponseEntity.ok(profile.get()) : ResponseEntity.notFound().build());
         return ResponseEntity.ok(profile);
     }
 

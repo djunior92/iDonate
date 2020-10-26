@@ -5,6 +5,7 @@ import br.com.idonate.iDonate.repository.QuotationRepository;
 import br.com.idonate.iDonate.service.QuotationService;
 import br.com.idonate.iDonate.service.exception.QuotationNotRegisteredException;
 import br.com.idonate.iDonate.service.exception.InvalidValueException;
+import br.com.idonate.iDonate.service.exception.RegisterNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ public class QuotationServiceImpl implements QuotationService {
     public Quotation save(Quotation quotation) throws QuotationNotRegisteredException, InvalidValueException {
         valueValidation(quotation);
         try {
-            encerrar();
+            shutdown();
             quotation.setDateStart(LocalDateTime.now());
             return quotationRepository.save(quotation);
         } catch (Exception e) {
@@ -33,8 +34,8 @@ public class QuotationServiceImpl implements QuotationService {
     }
 
     @Override
-    public Optional<Quotation> searchOpen() {
-        return quotationRepository.findByDateEndIsNull();
+    public Quotation searchOpen() throws RegisterNotFoundException {
+        return quotationRepository.findByDateEndIsNull().orElseThrow(() -> new RegisterNotFoundException("Nenhuma cotação em aberto encontrada."));
     }
 
     @Override
@@ -42,20 +43,15 @@ public class QuotationServiceImpl implements QuotationService {
         return quotationRepository.findById(id);
     }
 
-    public void encerrar(){
-        Optional<Quotation> optionalQuotation = quotationRepository.findByDateEndIsNull();
-
-        if (!optionalQuotation.isPresent()) {
-            return;
+    public void shutdown() {
+        Optional<Quotation> quotationSaved = quotationRepository.findByDateEndIsNull();
+        if (quotationSaved.isPresent()) {
+            quotationSaved.get().setDateEnd(LocalDateTime.now());
+            quotationRepository.save(quotationSaved.get());
         }
-        Quotation quotationSaved = optionalQuotation.get();
-        quotationSaved.setDateEnd(LocalDateTime.now());
-
-        quotationRepository.save(quotationSaved);
     }
 
     private void valueValidation(Quotation quotation) throws InvalidValueException {
-
         if (quotation.getPricePoint().compareTo(BigDecimal.ZERO) <= 0){
             throw new InvalidValueException("Valor: " + quotation.getPricePoint() + " inválido. O valor deve ser maior que zero.");
         }

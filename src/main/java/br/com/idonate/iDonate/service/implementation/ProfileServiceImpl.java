@@ -1,5 +1,6 @@
 package br.com.idonate.iDonate.service.implementation;
 
+import br.com.idonate.iDonate.core.IDonateUtils;
 import br.com.idonate.iDonate.ApplicationContextLoad;
 import br.com.idonate.iDonate.model.Campaign;
 import br.com.idonate.iDonate.model.Donation;
@@ -13,15 +14,13 @@ import br.com.idonate.iDonate.service.CampaignService;
 import br.com.idonate.iDonate.service.ProfileService;
 import br.com.idonate.iDonate.service.UserService;
 import br.com.idonate.iDonate.service.exception.ProfileNotRegisteredException;
+import br.com.idonate.iDonate.service.exception.RegisterNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ProfileServiceImpl implements ProfileService {
@@ -37,13 +36,13 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     @Transactional(rollbackOn = ProfileNotRegisteredException.class)
-    public Profile save(String login, Profile profile) throws ProfileNotRegisteredException {
+    public Profile save(String login, Profile profile) throws ProfileNotRegisteredException, RegisterNotFoundException {
         try {
             Optional<User> userOpt = ApplicationContextLoad.getApplicationContext()
                     .getBean(UserRepository.class).findByLogin(login);
 
-            if (!userOpt.isPresent()) {
-                throw new Exception();
+            if (userOpt.isEmpty()) {
+                throw new RegisterNotFoundException("Usuário " + login + " não encontrado.");
             }
 
             profile.setId(userOpt.get().getId());
@@ -61,65 +60,50 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public Profile edit(Long id, Profile profile) throws EmptyResultDataAccessException {
-        profileExist(id);
-        profile.setId(id);
+    public Profile edit(Long id, Profile profile) throws RegisterNotFoundException {
+        Profile profileEdit = profileExist(id);
+        IDonateUtils.copyNonNullProperties(profile, profileEdit, "id");
 
-        return profileRepository.save(profile);
+        return profileRepository.save(profileEdit);
     }
 
     @Override
-    public ProfileView searchById(Long id) {
-        Optional<User> userOpt = ApplicationContextLoad.getApplicationContext().getBean(UserRepository.class).findById(id);
-
-        if (!userOpt.isPresent()) {
-            throw new EmptyResultDataAccessException(1);
-        }
-
-        Optional<Profile> profileOpt = profileRepository.findById(userOpt.get().getId());
-
-        if (!profileOpt.isPresent()) {
-            throw new EmptyResultDataAccessException(1);
-        }
+    public ProfileView searchById(Long id) throws RegisterNotFoundException {
+        User user = ApplicationContextLoad.getApplicationContext().getBean(UserRepository.class).findById(id).orElseThrow(() -> new RegisterNotFoundException("Usuário " + id + " não encontrado."));
+        Profile profile = profileRepository.findById(user.getId()).orElseThrow(() -> new RegisterNotFoundException("Perfil " + id + " não encontrado."));
 
         ProfileView profileView = new ProfileView();
-        profileView.id = profileOpt.get().getId();
-        profileView.login = userOpt.get().getLogin();
-        profileView.phone = profileOpt.get().getPhone();
-        profileView.name = profileOpt.get().getName();
-        profileView.image = profileOpt.get().getImage();
-        profileView.registrationDate = profileOpt.get().getRegistrationDate();
-        profileView.facebook = profileOpt.get().getFacebook();
-        profileView.instagram = profileOpt.get().getInstagram();
-        profileView.youtube = profileOpt.get().getYoutube();
-        profileView.website = profileOpt.get().getWebsite();
-        profileView.peopleType = profileOpt.get().getPeopleType();
-        profileView.document = profileOpt.get().getDocument();
-        profileView.dateBirth = profileOpt.get().getDateBirth();
-        profileView.description = profileOpt.get().getDescription();
+        profileView.id = profile.getId();
+        profileView.login = user.getLogin();
+        profileView.phone = profile.getPhone();
+        profileView.name = profile.getName();
+        profileView.image = profile.getImage();
+        profileView.registrationDate = profile.getRegistrationDate();
+        profileView.facebook = profile.getFacebook();
+        profileView.instagram = profile.getInstagram();
+        profileView.youtube = profile.getYoutube();
+        profileView.website = profile.getWebsite();
+        profileView.peopleType = profile.getPeopleType();
+        profileView.document = profile.getDocument();
+        profileView.dateBirth = profile.getDateBirth();
+        profileView.description = profile.getDescription();
 
         return profileView;
     }
 
     @Override
-    public Optional<Profile> searchLogin(String login) {
-        Optional<User> userOpt = ApplicationContextLoad.getApplicationContext().getBean(UserRepository.class).findByLogin(login);
-
-        if (!userOpt.isPresent()) {
-            return null;
-        }
-
-        return profileRepository.findById(userOpt.get().getId());
+    public Optional<Profile> searchLogin(String login) throws RegisterNotFoundException {
+        return profileRepository.findById(ApplicationContextLoad.getApplicationContext()
+                .getBean(UserRepository.class).findByLogin(login).orElseThrow(() -> new RegisterNotFoundException("Perfil " + login + " não encontrado.")).getId());
     }
 
     @Override
     public List<Profile> searchByName(String name) {
-
-        return profileRepository.findByNameContaining(name);
+        return profileRepository.findByNameContainingIgnoreCase(name);
     }
 
     @Override
-    public void recharge(Long id, Integer points) {
+    public void recharge(Long id, Integer points) throws RegisterNotFoundException {
         Profile profileEditing = profileExist(id);
 
         profileEditing.setMyPoints(profileEditing.getMyPoints() + points);
@@ -127,7 +111,7 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public void redeem(Long id, Integer points) {
+    public void redeem(Long id, Integer points) throws RegisterNotFoundException {
         Profile profileEditing = profileExist(id);
 
         profileEditing.setPointsReceived(profileEditing.getPointsReceived() - points);
@@ -135,8 +119,8 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public void donation(Donation donation) {
-        Boolean verifyBenefitedProfile = true;
+    public void donation(Donation donation) throws RegisterNotFoundException {
+        boolean verifyBenefitedProfile = true;
         Profile donorProfile = profileExist(donation.getDonor().getId());
         Profile benefitedProfile;
         Campaign benefitedCampaign;
@@ -169,23 +153,12 @@ public class ProfileServiceImpl implements ProfileService {
         profileRepository.save(benefited);
     }
 
-    private Profile profileExist(Long id) {
-        Optional<Profile> optionalProfile = profileRepository.findById(id);
-
-        if (!optionalProfile.isPresent()) {
-            throw new EmptyResultDataAccessException(1);
-        }
-
-        return optionalProfile.get();
+    private Profile profileExist(Long id) throws RegisterNotFoundException {
+        return profileRepository.findById(id).orElseThrow(() -> new RegisterNotFoundException("Perfil " + id + " não encontrado."));
     }
 
-    private Campaign campaignExist(Long id) {
-        Optional<Campaign> optionalCampaign = campaignService.searchById(id);
-
-        if (!optionalCampaign.isPresent()) {
-            throw new EmptyResultDataAccessException(1);
-        }
-
-        return optionalCampaign.get();
+    private Campaign campaignExist(Long id) throws RegisterNotFoundException {
+        return campaignService.searchById(id).orElseThrow(() -> new RegisterNotFoundException("Campanha " + id + " não encontrado."));
     }
+
 }

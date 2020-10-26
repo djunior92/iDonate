@@ -1,11 +1,13 @@
 package br.com.idonate.iDonate.service.implementation;
 
 
+import br.com.idonate.iDonate.core.IDonateUtils;
 import br.com.idonate.iDonate.model.Address;
 import br.com.idonate.iDonate.model.Profile;
 import br.com.idonate.iDonate.repository.AddressRepository;
 import br.com.idonate.iDonate.repository.ProfileRepository;
 import br.com.idonate.iDonate.service.AddressService;
+import br.com.idonate.iDonate.service.exception.RegisterNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -30,28 +32,17 @@ public class AddressServiceImpl implements AddressService {
 
 
     @Override
-    public Address edit(Long id, Address address) {
-        Optional<Address> optionalAddress = addressRepository.findById(id);
+    public Address edit(Long id, Address address) throws RegisterNotFoundException {
+        Address addressEdit = addressRepository.findById(id).orElseThrow(() -> new RegisterNotFoundException("Endereço " + id + " não encontrado."));
+        IDonateUtils.copyNonNullProperties(address, addressEdit, "id", "profile");
 
-        if (!optionalAddress.isPresent()) {
-            throw new EmptyResultDataAccessException(1);
-        }
-
-        Address addressSaved = optionalAddress.get();
-        addressSaved.setStreetAddress(address.getStreetAddress());
-        addressSaved.setNumberAddress(address.getNumberAddress());
-        addressSaved.setComplementAddress(address.getComplementAddress());
-        addressSaved.setCep(address.getCep());
-        addressSaved.setNeighborhood(address.getNeighborhood());
-        addressSaved.setCity(address.getCity());
-        addressSaved.setUf(address.getUf());
-
-        return addressRepository.save(addressSaved);
+        return addressRepository.save(addressEdit);
     }
 
     @Override
     public void delete(Long id){
-        addressRepository.delete(addressRepository.findById(id).get());
+        addressRepository.findById(id).ifPresentOrElse((address) -> addressRepository.delete(address),
+                () -> { throw new EmptyResultDataAccessException(1); });
     }
 
     @Override
@@ -60,17 +51,8 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public List<Address> searchByProfile(Long id) {
-
-        Profile optionalAddress = profileRepository.findById(id).get();
-        return addressRepository.findByProfile(optionalAddress);
+    public List<Address> searchByProfile(Long id) throws RegisterNotFoundException {
+        return addressRepository.findByProfile(profileRepository.findById(id).orElseThrow(() -> new RegisterNotFoundException("Perfil " + id + " não encontrado.")));
     }
 
-    private Boolean adrressExist(Long id) {
-        Optional<Address> optionalAddress = addressRepository.findById(id);
-        if (!optionalAddress.isPresent()) {
-            return false;
-        }
-        return true;
-    }
 }

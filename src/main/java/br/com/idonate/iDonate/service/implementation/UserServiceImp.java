@@ -6,13 +6,13 @@ import br.com.idonate.iDonate.mail.Mailer;
 import br.com.idonate.iDonate.model.Enum.StatusUser;
 import br.com.idonate.iDonate.model.Profile;
 import br.com.idonate.iDonate.model.User;
+import br.com.idonate.iDonate.model.view.ChangePassword;
 import br.com.idonate.iDonate.model.view.ValidationUser;
 import br.com.idonate.iDonate.repository.UserRepository;
 import br.com.idonate.iDonate.service.UserService;
 import br.com.idonate.iDonate.service.exception.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -52,13 +52,8 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public User edit(Long id, User user) throws InvalidEmailException {
-        Optional<User> optionalUser = userRepository.findById(id);
-
-        if (!optionalUser.isPresent()) {
-            throw new EmptyResultDataAccessException(1);
-        }
-        User userSaved = optionalUser.get();
+    public User edit(Long id, User user) throws InvalidEmailException, RegisterNotFoundException {
+        User userSaved = userRepository.findById(id).orElseThrow(() -> new RegisterNotFoundException("Usuário " + id + " não encontrado."));
 
         userSaved.setEmail(user.getEmail());
         emailValidation(userSaved);
@@ -83,7 +78,7 @@ public class UserServiceImp implements UserService {
         Optional<User> userOpt = ApplicationContextLoad.getApplicationContext()
                 .getBean(UserRepository.class).findByLogin(validationUser.getLogin());
 
-        if (!userOpt.isPresent()) {
+        if (userOpt.isEmpty()) {
             throw new InvalidLoginException("Login " + validationUser.getLogin() + " não encontrado para validação!");
         }
 
@@ -128,6 +123,23 @@ public class UserServiceImp implements UserService {
         }
     }
 
+    @Override
+    public User changePassword(Long id, ChangePassword changePassword)
+            throws RegisterNotFoundException, NewAndOldPasswordAlikeException, PasswordOldInvalidException {
+        if (changePassword.getPasswordOld().trim().equals(changePassword.getPasswordNew().trim())) {
+            throw new NewAndOldPasswordAlikeException("A senha nova precisa ser diferente.");
+        }
+
+        User userEditing = userRepository.findById(id).orElseThrow(() -> new RegisterNotFoundException("Usuário " + id + " não encontrado."));
+        String encrypted = new BCryptPasswordEncoder().encode(changePassword.getPasswordOld());
+        if (userEditing.getPassw().equals(encrypted)) {
+            throw new PasswordOldInvalidException("Senha antiga inválida.");
+        }
+
+        userEditing.setPassw(encrypted);
+        return userRepository.save(userEditing);
+    }
+
     private void loginValidation(User user) throws LoginUnavailableException {
         Optional<User> optional = userRepository.findByLogin(user.getLogin());
 
@@ -149,7 +161,7 @@ public class UserServiceImp implements UserService {
     }
 
     private static Boolean isValidEmailAddressRegex(String email) {
-        Boolean isEmailIdValid = false;
+        boolean isEmailIdValid = false;
         if (email != null && email.length() > 0) {
             String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
             Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
@@ -163,8 +175,8 @@ public class UserServiceImp implements UserService {
 
     private String generateCodValidation() {
         Random random = new Random();
-        Integer resultRandom = random.nextInt(999999) + 1;
-        return StringUtils.leftPad(resultRandom.toString(), 6, "0");
+        int resultRandom = random.nextInt(999999) + 1;
+        return StringUtils.leftPad(Integer.toString(resultRandom), 6, "0");
     }
 
 

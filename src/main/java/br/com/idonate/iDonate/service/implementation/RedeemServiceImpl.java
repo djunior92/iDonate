@@ -1,7 +1,7 @@
 package br.com.idonate.iDonate.service.implementation;
 
-import br.com.idonate.iDonate.model.Profile;
 import br.com.idonate.iDonate.model.Redeem;
+import br.com.idonate.iDonate.repository.ProfileRepository;
 import br.com.idonate.iDonate.repository.RedeemRepository;
 import br.com.idonate.iDonate.service.ProfileService;
 import br.com.idonate.iDonate.service.QuotationService;
@@ -23,6 +23,9 @@ public class RedeemServiceImpl implements RedeemService {
     RedeemRepository redeemRepository;
 
     @Autowired
+    ProfileRepository profileRepository;
+
+    @Autowired
     ProfileService profileService;
 
     @Autowired
@@ -34,7 +37,7 @@ public class RedeemServiceImpl implements RedeemService {
         try {
             redeem.setDateRedeem(LocalDateTime.now());
             redeem.setValueRate(BigDecimal.ZERO);
-            redeem.setQuotation(quotationService.searchOpen().get());
+            redeem.setQuotation(quotationService.searchOpen());
             redeem.setPointsRedeemed(calculatePoints(redeem));
 
             profileService.redeem(redeem.getProfile().getId(), redeem.getPointsRedeemed());
@@ -51,8 +54,8 @@ public class RedeemServiceImpl implements RedeemService {
     }
 
     @Override
-    public List<Redeem> searchByProfile(Profile profile) {
-        return redeemRepository.findByProfile(profile);
+    public List<Redeem> searchByProfile(Long profileId) {
+        return redeemRepository.findByProfile(profileRepository.findById(profileId).orElseThrow());
     }
 
     private Integer calculatePoints(Redeem redeem) {

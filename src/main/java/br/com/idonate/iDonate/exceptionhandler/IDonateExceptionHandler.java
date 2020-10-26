@@ -1,8 +1,6 @@
 package br.com.idonate.iDonate.exceptionhandler;
 
-import br.com.idonate.iDonate.service.exception.InvalidEmailException;
-import br.com.idonate.iDonate.service.exception.InvalidTokenException;
-import br.com.idonate.iDonate.service.exception.LoginUnavailableException;
+import br.com.idonate.iDonate.service.exception.*;
 import lombok.Getter;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +21,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @ControllerAdvice
@@ -38,7 +36,7 @@ public class IDonateExceptionHandler extends ResponseEntityExceptionHandler {
                                                                   WebRequest request) {
         String userMessage = messageSource.getMessage("mensagem.invalida", null, LocaleContextHolder.getLocale());
         String developerMessage = ex.getCause().toString();
-        List<Erro> erros = Arrays.asList(new Erro(userMessage, developerMessage));
+        List<Erro> erros = Collections.singletonList(new Erro(userMessage, developerMessage));
         return handleExceptionInternal(ex, erros, headers, HttpStatus.BAD_REQUEST, request);
     }
 
@@ -49,35 +47,11 @@ public class IDonateExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, erros, headers, HttpStatus.BAD_REQUEST, request);
     }
 
-    @ExceptionHandler({LoginUnavailableException.class})
-    public ResponseEntity<Object> handleLoginUnavailableException(LoginUnavailableException ex, WebRequest request) {
-        String mensagemUsuario = messageSource.getMessage("usuario.existente", null, LocaleContextHolder.getLocale());
-        String mensagemDesenvolvedor = ex.toString();
-        List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
-        return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
-    }
-
-    @ExceptionHandler({InvalidTokenException.class})
-    public ResponseEntity<Object> handleInvalidTokenException(InvalidTokenException ex, WebRequest request) {
-        String mensagemUsuario = messageSource.getMessage("token.invalido", null, LocaleContextHolder.getLocale());
-        String mensagemDesenvolvedor = ex.toString();
-        List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
-        return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
-    }
-
-    @ExceptionHandler({InvalidEmailException.class})
-    public ResponseEntity<Object> handleInvalidEmailException(InvalidEmailException ex, WebRequest request) {
-        String mensagemUsuario = messageSource.getMessage("email.invalido", null, LocaleContextHolder.getLocale());
-        String mensagemDesenvolvedor = ex.toString();
-        List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
-        return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
-    }
-
     @ExceptionHandler({ EmptyResultDataAccessException.class })
     public ResponseEntity<Object> handleEmptyResultDataAccessException(EmptyResultDataAccessException ex, WebRequest request) {
         String mensagemUsuario = messageSource.getMessage("recurso.nao-encontrado", null, LocaleContextHolder.getLocale());
         String mensagemDesenvolvedor = ex.toString();
-        List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+        List<Erro> erros = Collections.singletonList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
         return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
 
@@ -85,8 +59,144 @@ public class IDonateExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleDataIntegrityViolationException(DataIntegrityViolationException ex, WebRequest request) {
         String mensagemUsuario = messageSource.getMessage("recurso.operacao-nao-permitida", null, LocaleContextHolder.getLocale());
         String mensagemDesenvolvedor = ExceptionUtils.getRootCauseMessage(ex);
-        List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+        List<Erro> erros = Collections.singletonList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
         return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler({ CampaignAndBenefitedNotInformedException.class } )
+    public ResponseEntity<Object> handleCampaignAndBenefitedNotInformedException(CampaignAndBenefitedNotInformedException ex, WebRequest request) {
+        String mensagemUsuario = messageSource.getMessage("campanha.beneficiado-nao-encontrado", null, LocaleContextHolder.getLocale());
+        String mensagemDesenvolvedor = ExceptionUtils.getRootCauseMessage(ex);
+        List<Erro> erros = Collections.singletonList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+        return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler({ CreditCardNotRegisteredException.class } )
+    public ResponseEntity<Object> handleCreditCardNotRegisteredException(CreditCardNotRegisteredException ex, WebRequest request) {
+        String mensagemUsuario = messageSource.getMessage("cartao.nao-registrado", null, LocaleContextHolder.getLocale());
+        String mensagemDesenvolvedor = ExceptionUtils.getRootCauseMessage(ex);
+        List<Erro> erros = Collections.singletonList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+        return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+    }
+
+    @ExceptionHandler({ DonationNotRegisteredException.class } )
+    public ResponseEntity<Object> handleDonationNotRegisteredException(DonationNotRegisteredException ex, WebRequest request) {
+        String mensagemUsuario = messageSource.getMessage("doacao.nao-registrado", null, LocaleContextHolder.getLocale());
+        String mensagemDesenvolvedor = ExceptionUtils.getRootCauseMessage(ex);
+        List<Erro> erros = Collections.singletonList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+        return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+    }
+
+    @ExceptionHandler({ InvalidCodValidationException.class } )
+    public ResponseEntity<Object> handleInvalidCodValidationException(InvalidCodValidationException ex, WebRequest request) {
+        String mensagemUsuario = messageSource.getMessage("usuario.cod-valid-invalido", null, LocaleContextHolder.getLocale());
+        String mensagemDesenvolvedor = ExceptionUtils.getRootCauseMessage(ex);
+        List<Erro> erros = Collections.singletonList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+        return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+    }
+
+    @ExceptionHandler({InvalidEmailException.class})
+    public ResponseEntity<Object> handleInvalidEmailException(InvalidEmailException ex, WebRequest request) {
+        String mensagemUsuario = messageSource.getMessage("email.invalido", null, LocaleContextHolder.getLocale());
+        String mensagemDesenvolvedor = ex.toString();
+        List<Erro> erros = Collections.singletonList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+        return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler({InvalidLoginException.class})
+    public ResponseEntity<Object> handleInvalidLoginException(InvalidLoginException ex, WebRequest request) {
+        String mensagemUsuario = messageSource.getMessage("usuario.login-invalido", null, LocaleContextHolder.getLocale());
+        String mensagemDesenvolvedor = ex.toString();
+        List<Erro> erros = Collections.singletonList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+        return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler({InvalidTokenException.class})
+    public ResponseEntity<Object> handleInvalidTokenException(InvalidTokenException ex, WebRequest request) {
+        String mensagemUsuario = messageSource.getMessage("token.invalido", null, LocaleContextHolder.getLocale());
+        String mensagemDesenvolvedor = ex.toString();
+        List<Erro> erros = Collections.singletonList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+        return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler({ InvalidValueException.class })
+    public ResponseEntity<Object> handleRegisterNotFoundException(InvalidValueException ex, WebRequest request) {
+        String mensagemUsuario = messageSource.getMessage("cotacao.invalda", null, LocaleContextHolder.getLocale());
+        String mensagemDesenvolvedor = ex.toString();
+        List<Erro> erros = Collections.singletonList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+        return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler({ LoginAlreadyValidatedException.class })
+    public ResponseEntity<Object> handleLoginAlreadyValidatedException(LoginAlreadyValidatedException ex, WebRequest request) {
+        String mensagemUsuario = messageSource.getMessage("usuario.login-ja-validado", null, LocaleContextHolder.getLocale());
+        String mensagemDesenvolvedor = ex.toString();
+        List<Erro> erros = Collections.singletonList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+        return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler({LoginUnavailableException.class})
+    public ResponseEntity<Object> handleLoginUnavailableException(LoginUnavailableException ex, WebRequest request) {
+        String mensagemUsuario = messageSource.getMessage("usuario.existente", null, LocaleContextHolder.getLocale());
+        String mensagemDesenvolvedor = ex.toString();
+        List<Erro> erros = Collections.singletonList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+        return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler({NewAndOldPasswordAlikeException.class})
+    public ResponseEntity<Object> handleNewAndOldPasswordAlikeException(NewAndOldPasswordAlikeException ex, WebRequest request) {
+        String mensagemUsuario = messageSource.getMessage("usuario.senhas-iguais", null, LocaleContextHolder.getLocale());
+        String mensagemDesenvolvedor = ex.toString();
+        List<Erro> erros = Collections.singletonList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+        return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler({PasswordOldInvalidException.class})
+    public ResponseEntity<Object> handlePasswordOldInvalidException(PasswordOldInvalidException ex, WebRequest request) {
+        String mensagemUsuario = messageSource.getMessage("usuario.senha-antiga-invalida", null, LocaleContextHolder.getLocale());
+        String mensagemDesenvolvedor = ex.toString();
+        List<Erro> erros = Collections.singletonList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+        return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler({ ProfileNotRegisteredException.class } )
+    public ResponseEntity<Object> handleProfileNotRegisteredException(ProfileNotRegisteredException ex, WebRequest request) {
+        String mensagemUsuario = messageSource.getMessage("perfil.nao-registrado", null, LocaleContextHolder.getLocale());
+        String mensagemDesenvolvedor = ExceptionUtils.getRootCauseMessage(ex);
+        List<Erro> erros = Collections.singletonList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+        return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler({ ProfileOrCampaignNotInformedException.class } )
+    public ResponseEntity<Object> handleProfileOrCampaignNotInformedException(ProfileOrCampaignNotInformedException ex, WebRequest request) {
+        String mensagemUsuario = messageSource.getMessage("comentario.comentado-nao-informado", null, LocaleContextHolder.getLocale());
+        String mensagemDesenvolvedor = ExceptionUtils.getRootCauseMessage(ex);
+        List<Erro> erros = Collections.singletonList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+        return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler({ QuotationNotRegisteredException.class } )
+    public ResponseEntity<Object> handleQuotationNotRegisteredException(QuotationNotRegisteredException ex, WebRequest request) {
+        String mensagemUsuario = messageSource.getMessage("cotacao.nao-registrado", null, LocaleContextHolder.getLocale());
+        String mensagemDesenvolvedor = ExceptionUtils.getRootCauseMessage(ex);
+        List<Erro> erros = Collections.singletonList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+        return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler({ RechargeNotRegisteredException.class } )
+    public ResponseEntity<Object> handleRechargeNotRegisteredException(RechargeNotRegisteredException ex, WebRequest request) {
+        String mensagemUsuario = messageSource.getMessage("recarga.nao-registrado", null, LocaleContextHolder.getLocale());
+        String mensagemDesenvolvedor = ExceptionUtils.getRootCauseMessage(ex);
+        List<Erro> erros = Collections.singletonList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+        return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler({ RegisterNotFoundException.class })
+    public ResponseEntity<Object> handleRegisterNotFoundException(RegisterNotFoundException ex, WebRequest request) {
+        String mensagemUsuario = messageSource.getMessage("recurso.nao-encontrado", null, LocaleContextHolder.getLocale());
+        String mensagemDesenvolvedor = ex.toString();
+        List<Erro> erros = Collections.singletonList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+        return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
 
     private List<Erro> createErrorList(BindingResult bindingResult) {

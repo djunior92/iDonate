@@ -9,6 +9,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity(name = "recharge")
 @Data
@@ -44,5 +45,8 @@ public class Recharge {
     @ManyToOne
     @JoinColumn(name = "quotation_id")
     private Quotation quotation;
+
+    @OneToMany(mappedBy = "recharge")
+    private List<Payment> payments;
 
 }

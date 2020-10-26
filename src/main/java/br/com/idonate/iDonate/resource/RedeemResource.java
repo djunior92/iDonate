@@ -1,6 +1,5 @@
 package br.com.idonate.iDonate.resource;
 
-import br.com.idonate.iDonate.model.Profile;
 import br.com.idonate.iDonate.model.Redeem;
 import br.com.idonate.iDonate.service.RedeemService;
 import br.com.idonate.iDonate.service.exception.RedeemNotRegisteredException;
@@ -29,12 +28,13 @@ public class RedeemResource {
     @GetMapping("{id}")
     public ResponseEntity<Redeem> searchById(@PathVariable Long id) {
         Optional<Redeem> redeem = redeemService.searchById(id);
-        return (redeem.isPresent() ? ResponseEntity.ok(redeem.get()) : ResponseEntity.notFound().build());
+        return (redeem.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build()));
     }
 
-    @GetMapping
-    public ResponseEntity<List<Redeem>> searchByProfile(@RequestBody Profile profile) {
-        return new ResponseEntity<>(redeemService.searchByProfile(profile), HttpStatus.OK);
+    //Alterado Gustavo
+    @GetMapping("/profile/{profileId}")
+    public ResponseEntity<List<Redeem>> searchByProfile(@PathVariable Long profileId) {
+        return new ResponseEntity<>(redeemService.searchByProfile(profileId), HttpStatus.OK);
     }
 
 }

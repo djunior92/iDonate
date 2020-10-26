@@ -8,5 +8,5 @@ import java.util.Optional;
 
 public interface ProfileRepository extends JpaRepository<Profile, Long> {
 
-    List<Profile> findByNameContaining(String name);
+    List<Profile> findByNameContainingIgnoreCase(String name);
 }

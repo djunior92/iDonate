@@ -20,7 +20,7 @@ import java.util.Optional;
 @Component
 public class JWTTokenAuthenticationService {
 
-    private static final long EXPIRATION_TIME = 600000;
+    private static final long EXPIRATION_TIME = 86400000;
     private static final String SECRET = "1a2b3c4d5e@";
     private static final String TOKEN_PREFIX = "Bearer";
     private static final String HEADER_STRING = "Authorization";

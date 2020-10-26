@@ -1,7 +1,7 @@
 package br.com.idonate.iDonate.model.Enum;
 
 public enum BrandCard {
-    creditcard,
+    Visa,
     Master,
     Amex,
     Elo,

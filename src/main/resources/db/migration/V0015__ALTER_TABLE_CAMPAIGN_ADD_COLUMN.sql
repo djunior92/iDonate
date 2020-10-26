@@ -1,0 +1,1 @@
+ALTER TABLE Campaign ADD COLUMN end_forecast_date timestamp;

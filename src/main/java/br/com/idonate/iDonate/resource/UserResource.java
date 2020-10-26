@@ -1,12 +1,10 @@
 package br.com.idonate.iDonate.resource;
 
 import br.com.idonate.iDonate.model.User;
+import br.com.idonate.iDonate.model.view.ChangePassword;
 import br.com.idonate.iDonate.model.view.ValidationUser;
 import br.com.idonate.iDonate.service.UserService;
-import br.com.idonate.iDonate.service.exception.InvalidCodValidationException;
-import br.com.idonate.iDonate.service.exception.InvalidEmailException;
-import br.com.idonate.iDonate.service.exception.InvalidLoginException;
-import br.com.idonate.iDonate.service.exception.LoginAlreadyValidatedException;
+import br.com.idonate.iDonate.service.exception.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +30,7 @@ public class UserResource {
     @GetMapping("/{login}")
     public ResponseEntity<User> searchByLogin(@PathVariable String login) {
         Optional<User> user = userService.searchLogin(login);
-        return (user.isPresent() ? ResponseEntity.ok(user.get()) : ResponseEntity.notFound().build());
+        return (user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build()));
     }
 
     /*@GetMapping("/id/{id}")
@@ -44,7 +42,7 @@ public class UserResource {
 
     @PutMapping("/resendemail/{id}")
     public ResponseEntity<User> resendEmail(@PathVariable Long id, @Valid @RequestBody User user)
-            throws InvalidEmailException {
+            throws InvalidEmailException, RegisterNotFoundException {
         final User savedUser = userService.edit(id, user);
         try {
             userService.triggerEmail(savedUser);
@@ -52,6 +50,13 @@ public class UserResource {
             userService.updateUnsetEmail(savedUser);
         }
         return new ResponseEntity<>(savedUser, HttpStatus.OK);
+    }
+
+    @PutMapping("/changepassword/{id}")
+    public ResponseEntity<User> changePassword(@PathVariable Long id, @Valid @RequestBody ChangePassword changePassword)
+            throws RegisterNotFoundException, NewAndOldPasswordAlikeException, PasswordOldInvalidException {
+        User updatedUser = userService.changePassword(id, changePassword);
+        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 
 }

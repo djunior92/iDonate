@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-
 import java.util.List;
 import java.util.Optional;
 
@@ -33,7 +32,7 @@ public class BankAccountServiceImpl implements BankAccountService {
     public BankAccount edit(Long id, BankAccount bankAccount) {
         Optional<BankAccount> optionalBankAccount = bankAccountRepository.findById(id);
 
-        if (!optionalBankAccount.isPresent()) {
+        if (optionalBankAccount.isEmpty()) {
             throw new EmptyResultDataAccessException(1);
         }
         BankAccount bankAccountSaved = optionalBankAccount.get();
@@ -50,9 +49,9 @@ public class BankAccountServiceImpl implements BankAccountService {
 
     @Override
     public void delete(Long id){
-        bankAccountRepository.delete(bankAccountRepository.findById(id).get());
+        bankAccountRepository.findById(id).ifPresentOrElse((bankAccount) -> bankAccountRepository.delete(bankAccount),
+                () -> { throw new EmptyResultDataAccessException(1); });
     }
-
 
     @Override
     public Optional<BankAccount> searchById(Long id) {
@@ -62,10 +61,7 @@ public class BankAccountServiceImpl implements BankAccountService {
 
     @Override
     public List<BankAccount> searchByProfile(Long id) {
-
-        //return bankAccountRepository.findByProfile(profile);
-        Profile optionalBankAccount = profileRepository.findById(id).get();
-        return bankAccountRepository.findByProfile(optionalBankAccount);
+        return bankAccountRepository.findByProfile(profileRepository.findById(id).orElseThrow());
     }
 
 }

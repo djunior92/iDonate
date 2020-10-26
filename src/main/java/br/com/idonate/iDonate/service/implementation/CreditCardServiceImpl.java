@@ -8,10 +8,11 @@ import br.com.idonate.iDonate.model.Profile;
 import br.com.idonate.iDonate.repository.CreditCardRepository;
 import br.com.idonate.iDonate.repository.ProfileRepository;
 import br.com.idonate.iDonate.service.CreditCardService;
+import br.com.idonate.iDonate.service.exception.CreditCardNotRegisteredException;
+import br.com.idonate.iDonate.service.exception.RegisterNotFoundException;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public class CreditCardServiceImpl implements CreditCardService {
     ApiCieloService apiCieloService;
 
     @Override
-    public CreditCard save(CreditCard creditCard) throws Exception {
+    public CreditCard save(CreditCard creditCard) throws CreditCardNotRegisteredException {
         try {
             String cardToken = apiCieloService.createCreditCard(CreatingTokenizedCardRequest.of(creditCard));
             if (StringUtils.isEmpty(cardToken)) {
@@ -44,19 +45,14 @@ public class CreditCardServiceImpl implements CreditCardService {
                 }
             }
             return creditCardRepository.save(creditCard);
-        } catch (NoSuchFieldException e) {
-            throw new Exception(e);
+        } catch (Exception e) {
+            throw new CreditCardNotRegisteredException("Erro ao gravar cartão de crédito.");
         }
     }
 
     @Override
-    public CreditCard inactive(Long id) {
-        Optional<CreditCard> optionalCreditCard = creditCardRepository.findById(id);
-
-        if (!optionalCreditCard.isPresent()) {
-            throw new EmptyResultDataAccessException(1);
-        }
-        CreditCard creditCard = optionalCreditCard.get();
+    public CreditCard inactive(Long id) throws RegisterNotFoundException {
+        CreditCard creditCard = creditCardRepository.findById(id).orElseThrow(() -> new RegisterNotFoundException("Cartão de Crédito " + id + " não encontrado."));
         creditCard.setStatus(CreditCardStatus.INACTIVE);
         return creditCardRepository.save(creditCard);
     }
@@ -67,9 +63,14 @@ public class CreditCardServiceImpl implements CreditCardService {
     }
 
     @Override
-    public List<CreditCard> searchByProfile(Long id) {
-
-        Profile optionalCreditCard = profileRepository.findById(id).get();
-        return creditCardRepository.findByProfile(optionalCreditCard);
+    public List<CreditCard> searchByProfile(Long id, CreditCardStatus status) throws RegisterNotFoundException {
+        Profile profile = profileRepository.findById(id).orElseThrow(() -> new RegisterNotFoundException("Perfil " + id + " não encontrado."));
+        List<CreditCard> creditCards;
+        if (status == null) {
+            creditCards = creditCardRepository.findByProfile(profile);
+        } else {
+            creditCards = creditCardRepository.findByProfileAndStatus(profile, status);
+        }
+        return creditCards;
     }
 }

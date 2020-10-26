@@ -1,10 +1,9 @@
 package br.com.idonate.iDonate.resource;
 
-import br.com.idonate.iDonate.model.Campaign;
-import br.com.idonate.iDonate.model.Profile;
 import br.com.idonate.iDonate.model.Recharge;
 import br.com.idonate.iDonate.service.RechargeService;
 import br.com.idonate.iDonate.service.exception.RechargeNotRegisteredException;
+import br.com.idonate.iDonate.service.exception.RegisterNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +21,7 @@ public class RechargeResource {
     RechargeService rechargeService;
 
     @PostMapping
-    public ResponseEntity<Recharge> save(@Valid @RequestBody Recharge recharge) throws RechargeNotRegisteredException {
+    public ResponseEntity<Recharge> save(@Valid @RequestBody Recharge recharge) throws RechargeNotRegisteredException, RegisterNotFoundException {
         Recharge savedRecharge = rechargeService.save(recharge);
         return new ResponseEntity<>(savedRecharge, HttpStatus.OK);
     }
@@ -30,12 +29,13 @@ public class RechargeResource {
     @GetMapping("/{id}")
     public ResponseEntity<Recharge> searchById(@PathVariable Long id) {
         Optional<Recharge> recharge = rechargeService.searchById(id);
-        return (recharge.isPresent() ? ResponseEntity.ok(recharge.get()) : ResponseEntity.notFound().build());
+        return (recharge.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build()));
     }
 
-    @GetMapping
-    public ResponseEntity<List<Recharge>> searchByProfile(@RequestBody Profile profile) {
-        return new ResponseEntity<>(rechargeService.searchByProfile(profile), HttpStatus.OK);
+    //Alterado Gustavo
+    @GetMapping("/profile/{profileId}")
+    public ResponseEntity<List<Recharge>> searchByProfile(@PathVariable Long profileId) throws RegisterNotFoundException {
+        return new ResponseEntity<>(rechargeService.searchByProfile(profileId), HttpStatus.OK);
     }
 
 }

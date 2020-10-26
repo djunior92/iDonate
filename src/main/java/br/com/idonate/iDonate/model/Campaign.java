@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.apache.commons.lang3.ObjectUtils;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -29,6 +30,9 @@ public class Campaign {
 
     @Column(name = "end_date")
     private LocalDateTime endDate;
+
+    @Column(name = "end_forecast_date")
+    private LocalDateTime endForecastDate;
 
     @NotNull
     @Size(min = 4, max = 100)
@@ -68,8 +72,8 @@ public class Campaign {
 
     @JsonProperty
     public BigDecimal getTargetPercentage() {
-        BigDecimal goalPoints = new BigDecimal(this.goalPoints).setScale(5);
-        BigDecimal pointsReceived = new BigDecimal(this.pointsReceived).setScale(5);
+        BigDecimal goalPoints = new BigDecimal(ObjectUtils.defaultIfNull(this.goalPoints, 0)).setScale(5, RoundingMode.HALF_EVEN);
+        BigDecimal pointsReceived = new BigDecimal(ObjectUtils.defaultIfNull(this.pointsReceived, 0)).setScale(5, RoundingMode.HALF_EVEN);
         this.targetPercentage = (pointsReceived.divide(goalPoints, RoundingMode.HALF_EVEN)).multiply(new BigDecimal(100)).setScale(2, RoundingMode.HALF_EVEN);
         return this.targetPercentage;
     }

@@ -1,12 +1,13 @@
 package br.com.idonate.iDonate.service.implementation;
 
+import br.com.idonate.iDonate.core.IDonateUtils;
 import br.com.idonate.iDonate.model.Campaign;
 import br.com.idonate.iDonate.model.Profile;
 import br.com.idonate.iDonate.repository.CampaignRepository;
 import br.com.idonate.iDonate.repository.ProfileRepository;
 import br.com.idonate.iDonate.service.CampaignService;
+import br.com.idonate.iDonate.service.exception.RegisterNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -34,33 +35,28 @@ public class CampaignServiceImpl implements CampaignService {
     }
 
     @Override
-    public Campaign edit(Long id, Campaign campaign) {
+    public Campaign edit(Long id, Campaign campaign) throws RegisterNotFoundException {
         Campaign campaignEditing = campaignExist(id);
-
-        campaignEditing.setName(campaign.getName());
-        campaignEditing.setDescription(campaign.getDescription());
-        campaignEditing.setLogo(campaign.getLogo());
-        campaignEditing.setGoalPoints(campaign.getGoalPoints());
-        campaignEditing.setEndDate(campaign.getEndDate());
+        IDonateUtils.copyNonNullProperties(campaign, campaignEditing, "id", "profile", "creationDate", "endDate", "targetPercentage");
 
         return campaignRepository.save(campaignEditing);
     }
 
     @Override
-    public void shutdown(Long id) {
+    public void shutdown(Long id) throws RegisterNotFoundException {
         Campaign campaignEditing = campaignExist(id);
 
         campaignEditing.setEndDate(LocalDateTime.now());
         campaignRepository.save(campaignEditing);
     }
 
-    @Override
-    public Campaign addPoints(Long id, Integer points) {
+    /*@Override
+    public Campaign addPoints(Long id, Integer points) throws RegisterNotFoundException {
         Campaign campaignEditing = campaignExist(id);
 
         campaignEditing.setPointsReceived(campaignEditing.getPointsReceived() + points);
         return campaignRepository.save(campaignEditing);
-    }
+    }*/
 
     @Override
     public Optional<Campaign> searchById(Long id) {
@@ -68,16 +64,53 @@ public class CampaignServiceImpl implements CampaignService {
     }
 
     @Override
-    public List<Campaign> searchByPerfil(Long id) {
-        Profile optionalBankAccount = profileRepository.findById(id).get();
-        return campaignRepository.findByProfile(optionalBankAccount);
+    public List<Campaign> searchByPerfil(Long profileId, String name, Boolean active) throws RegisterNotFoundException {
+        Profile profile = profileRepository.findById(profileId).orElseThrow(() -> new RegisterNotFoundException("Perfil " + profileId + " não encontrado."));
+        List<Campaign> campaigns;
+        if (name == null) {
+            if (active == null) {
+                campaigns = campaignRepository.findByProfile(profile);
+            } else if (active) {
+                campaigns = campaignRepository.findByProfileAndEndDateIsNull(profile);
+            } else {
+                campaigns = campaignRepository.findByProfileAndEndDateIsNotNull(profile);
+            }
+        } else {
+            if (active == null) {
+                campaigns = campaignRepository.findByProfileAndNameContainingIgnoreCase(profile, name);
+            } else if (active) {
+                campaigns = campaignRepository.findByProfileAndNameContainingIgnoreCaseAndEndDateIsNull(profile, name);
+            } else {
+                campaigns = campaignRepository.findByProfileAndNameContainingIgnoreCaseAndEndDateIsNotNull(profile, name);
+            }
+        }
+        return campaigns;
     }
 
-
+    @Override
+    public List<Campaign> searchByName(String name, Boolean active) {
+        List<Campaign> campaigns;
+        if (active == null) {
+            campaigns = campaignRepository.findByNameContainingIgnoreCase(name);
+        } else if (active) {
+            campaigns = campaignRepository.findByNameContainingIgnoreCaseAndEndDateIsNull(name);
+        } else {
+            campaigns = campaignRepository.findByNameContainingIgnoreCaseAndEndDateIsNotNull(name);
+        }
+        return campaigns;
+    }
 
     @Override
-    public List<Campaign> searchByName(String name) {
-        return campaignRepository.findByNameContaining(name);
+    public List<Campaign> searchAll(Boolean active) {
+        List<Campaign> campaigns;
+        if (active == null) {
+            campaigns = campaignRepository.findAll();
+        } else if (active) {
+            campaigns = campaignRepository.findByEndDateIsNull();
+        } else {
+            campaigns = campaignRepository.findByEndDateIsNotNull();
+        }
+        return campaigns;
     }
 
     @Override
@@ -86,14 +119,8 @@ public class CampaignServiceImpl implements CampaignService {
         campaignRepository.save(campaign);
     }
 
-    private Campaign campaignExist(Long id) {
-        Optional<Campaign> optionalCampaign = campaignRepository.findById(id);
-
-        if (!optionalCampaign.isPresent()) {
-            throw new EmptyResultDataAccessException(1);
-        }
-
-        return optionalCampaign.get();
+    private Campaign campaignExist(Long id) throws RegisterNotFoundException {
+        return campaignRepository.findById(id).orElseThrow(() -> new RegisterNotFoundException("Campanha " + id + " não encontrada."));
     }
 
 

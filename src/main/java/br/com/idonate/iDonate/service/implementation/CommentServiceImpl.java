@@ -1,12 +1,16 @@
 package br.com.idonate.iDonate.service.implementation;
 
 
+import br.com.idonate.iDonate.core.IDonateUtils;
 import br.com.idonate.iDonate.model.Campaign;
 import br.com.idonate.iDonate.model.Comment;
 import br.com.idonate.iDonate.model.Profile;
+import br.com.idonate.iDonate.repository.CampaignRepository;
 import br.com.idonate.iDonate.repository.CommentRepository;
+import br.com.idonate.iDonate.repository.ProfileRepository;
 import br.com.idonate.iDonate.service.CommentService;
 import br.com.idonate.iDonate.service.exception.ProfileOrCampaignNotInformedException;
+import br.com.idonate.iDonate.service.exception.RegisterNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -23,6 +27,11 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     CommentRepository commentRepository;
 
+    @Autowired
+    ProfileRepository profileRepository;
+
+    @Autowired
+    CampaignRepository campaignRepository;
 
     @Override
     public Comment save(Comment comment) throws ProfileOrCampaignNotInformedException{
@@ -37,22 +46,17 @@ public class CommentServiceImpl implements CommentService {
 
 
     @Override
-    public Comment edit(Long id, Comment comment) {
-        Optional<Comment> optionalComment = commentRepository.findById(id);
+    public Comment edit(Long id, Comment comment) throws RegisterNotFoundException {
+        Comment commentEditing = commentRepository.findById(id).orElseThrow(() -> new RegisterNotFoundException("Comentário " + id + " não encontrado."));
+        IDonateUtils.copyNonNullProperties(comment, commentEditing, "id", "dateComment", "profile", "author", "campaign");
 
-        if (!optionalComment.isPresent()) {
-            throw new EmptyResultDataAccessException(1);
-        }
-        Comment commentSaved = optionalComment.get();
-        commentSaved.setTitle(comment.getTitle());
-        commentSaved.setDescription(comment.getDescription());
-
-        return commentRepository.save(commentSaved);
+        return commentRepository.save(commentEditing);
     }
 
     @Override
     public void delete(Long id){
-        commentRepository.delete(commentRepository.findById(id).get());
+        commentRepository.findById(id).ifPresentOrElse((comment) -> commentRepository.delete(comment),
+                () -> { throw new EmptyResultDataAccessException(1); });
     }
 
     @Override
@@ -61,20 +65,13 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<Comment> searchByProfile(Profile profile) {
-        return commentRepository.findByProfile(profile);
+    public List<Comment> searchByProfile(Long profileId) throws RegisterNotFoundException {
+        return commentRepository.findByProfile(profileRepository.findById(profileId).orElseThrow(() -> new RegisterNotFoundException("Perfil " + profileId + " não encontrado.")));
     }
 
     @Override
-    public List<Comment> searchByCampaign(Campaign campaign) {
-        return commentRepository.findByCampaign(campaign);
+    public List<Comment> searchByCampaign(Long campaignId) throws RegisterNotFoundException {
+        return commentRepository.findByCampaign(campaignRepository.findById(campaignId).orElseThrow(() -> new RegisterNotFoundException("Campanha " + campaignId + " não encontrada.")));
     }
 
-    private Boolean commentExist(Long id) {
-        Optional<Comment> optionalComment = commentRepository.findById(id);
-        if (!optionalComment.isPresent()) {
-            return false;
-        }
-        return true;
-    }
 }

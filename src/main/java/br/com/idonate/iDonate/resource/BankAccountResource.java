@@ -2,7 +2,6 @@ package br.com.idonate.iDonate.resource;
 
 
 import br.com.idonate.iDonate.model.BankAccount;
-import br.com.idonate.iDonate.model.Profile;
 import br.com.idonate.iDonate.service.BankAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,11 +34,11 @@ public class BankAccountResource {
     @GetMapping("/{id}")
     public ResponseEntity<BankAccount> searchById(@PathVariable Long id) {
         Optional<BankAccount> bankAccount = bankAccountService.searchById(id);
-        return (bankAccount.isPresent() ? ResponseEntity.ok(bankAccount.get()) : ResponseEntity.notFound().build());
+        return (bankAccount.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build()));
     }
 
+    //Alterado Djalma
     @GetMapping("/profile/{id}")
-    //public ResponseEntity<List<BankAccount>> searchByProfile(@RequestBody Profile profile) {
     public ResponseEntity<List<BankAccount>> searchByProfile(@PathVariable Long id) {
         return new ResponseEntity<>(bankAccountService.searchByProfile(id), HttpStatus.OK);
     }
@@ -49,4 +48,5 @@ public class BankAccountResource {
         bankAccountService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }
