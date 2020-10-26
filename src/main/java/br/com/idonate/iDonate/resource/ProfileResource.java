@@ -27,6 +27,7 @@ public class ProfileResource {
         return new ResponseEntity<>(updateProfile, HttpStatus.OK);
     }
 
+
     @PostMapping("/{login}")
     public ResponseEntity<Profile> save(@PathVariable String login, @Valid @RequestBody Profile profile) throws ProfileNotRegisteredException, RegisterNotFoundException {
         Profile savedProfile = profileService.save(login, profile);
@@ -36,8 +37,10 @@ public class ProfileResource {
     @GetMapping("/{login}")
     public ResponseEntity<Profile> searchByLogin(@PathVariable String login) throws RegisterNotFoundException {
         Optional<Profile> profile = profileService.searchLogin(login);
-        return (profile.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build()));
+        //return (profile.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build()));
+        return (profile.isPresent() ? ResponseEntity.ok(profile.get()) : ResponseEntity.ok(null));
     }
+    
 
     @GetMapping("id/{id}")
     public ResponseEntity<ProfileView> searchById(@PathVariable Long id) throws RegisterNotFoundException {
