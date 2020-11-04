@@ -85,12 +85,14 @@ public class Profile {
 
     @JsonProperty
     public Long getLikes() {
-        return this.comment.stream().filter(c -> c.getEvaluation().equals(Evaluation.LIKE)).count();
+        return (this.comment == null ?
+                0 : this.comment.stream().filter(c -> c.getEvaluation().equals(Evaluation.LIKE)).count());
     }
 
     @JsonProperty
     public Long getDislikes() {
-        return this.comment.stream().filter(c -> c.getEvaluation().equals(Evaluation.DISLIKE)).count();
+        return (this.comment == null ?
+                0 : this.comment.stream().filter(c -> c.getEvaluation().equals(Evaluation.DISLIKE)).count());
     }
 
     @JsonIgnore
