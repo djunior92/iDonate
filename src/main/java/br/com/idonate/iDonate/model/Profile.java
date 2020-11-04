@@ -1,8 +1,9 @@
 package br.com.idonate.iDonate.model;
 
+import br.com.idonate.iDonate.model.Enum.Evaluation;
 import br.com.idonate.iDonate.model.Enum.PeopleType;
-import br.com.idonate.iDonate.model.Enum.StatusUser;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -64,6 +65,12 @@ public class Profile {
     @Size(min = 2, max = 512)
     private String description;
 
+    @Transient
+    private Long likes;
+
+    @Transient
+    private Long dislikes;
+
     @OneToMany(mappedBy = "profile")
     private List<Address> addresses;
 
@@ -73,7 +80,37 @@ public class Profile {
     @OneToMany(mappedBy = "profile")
     private List<Campaign> campaigns;
 
-    //@OneToMany(mappedBy = "profile")
-    //private List<Comment> comment;
+    @OneToMany(mappedBy = "profile")
+    private List<Comment> comment;
+
+    @JsonProperty
+    public Long getLikes() {
+        return this.comment.stream().filter(c -> c.getEvaluation().equals(Evaluation.LIKE)).count();
+    }
+
+    @JsonProperty
+    public Long getDislikes() {
+        return this.comment.stream().filter(c -> c.getEvaluation().equals(Evaluation.DISLIKE)).count();
+    }
+
+    @JsonIgnore
+    public List<Address> getAddresses() {
+        return this.addresses;
+    }
+
+    @JsonIgnore
+    public List<BankAccount> getBankAccounts() {
+        return this.bankAccounts;
+    }
+
+    @JsonIgnore
+    public List<Campaign> getCampaigns() {
+        return this.campaigns;
+    }
+
+    @JsonIgnore
+    public List<Comment> getComment() {
+        return this.comment;
+    }
 
 }

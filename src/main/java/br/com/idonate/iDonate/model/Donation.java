@@ -41,29 +41,14 @@ public class Donation {
     @Column(name = "donated_points")
     private Integer pointsDonationed;
 
-    @JsonIgnore
-    public Profile getDonor() {
-        return this.donor;
-    }
-
     @JsonProperty
     public void setDonor(Profile donor) {
         this.donor = donor;
     }
 
-    @JsonIgnore
-    public Profile getBenefited() {
-        return this.benefited;
-    }
-
     @JsonProperty
     public void setBenefited(Profile benefited) {
         this.benefited = benefited;
-    }
-
-    @JsonIgnore
-    public Campaign getCampaign() {
-        return this.campaign;
     }
 
     @JsonProperty

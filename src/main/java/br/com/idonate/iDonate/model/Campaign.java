@@ -1,5 +1,6 @@
 package br.com.idonate.iDonate.model;
 
+import br.com.idonate.iDonate.model.Enum.Evaluation;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -14,6 +15,7 @@ import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity(name = "campaign")
 @Data
@@ -60,10 +62,14 @@ public class Campaign {
     @Transient
     private BigDecimal targetPercentage;
 
-    @JsonIgnore
-    public Profile getProfile() {
-        return this.profile;
-    }
+    @Transient
+    private Long likes;
+
+    @Transient
+    private Long dislikes;
+
+    @OneToMany(mappedBy = "campaign")
+    private List<Comment> comment;
 
     @JsonProperty
     public void setProfile(Profile profile) {
@@ -78,9 +84,24 @@ public class Campaign {
         return this.targetPercentage;
     }
 
+    @JsonProperty
+    public Long getLikes() {
+        return this.comment.stream().filter(c -> c.getEvaluation().equals(Evaluation.LIKE)).count();
+    }
+
+    @JsonProperty
+    public Long getDislikes() {
+        return this.comment.stream().filter(c -> c.getEvaluation().equals(Evaluation.DISLIKE)).count();
+    }
+
     @JsonIgnore
     public void setTargetPercentage(BigDecimal targetPercentage) {
         this.targetPercentage = targetPercentage;
+    }
+
+    @JsonIgnore
+    public List<Comment> getComment() {
+        return this.comment;
     }
 
 }

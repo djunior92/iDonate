@@ -4,6 +4,7 @@ import br.com.idonate.iDonate.model.Donation;
 import br.com.idonate.iDonate.service.DonationService;
 import br.com.idonate.iDonate.service.exception.CampaignAndBenefitedNotInformedException;
 import br.com.idonate.iDonate.service.exception.DonationNotRegisteredException;
+import br.com.idonate.iDonate.service.exception.NumberOfPointsInvalidException;
 import br.com.idonate.iDonate.service.exception.RegisterNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,8 @@ public class DonationResource {
 
     @PostMapping
     public ResponseEntity<Donation> save(@Valid @RequestBody Donation donation)
-            throws DonationNotRegisteredException, CampaignAndBenefitedNotInformedException {
+            throws DonationNotRegisteredException, CampaignAndBenefitedNotInformedException,
+            RegisterNotFoundException, NumberOfPointsInvalidException {
         Donation savedDonation = donationService.save(donation);
         return new ResponseEntity<>(savedDonation, HttpStatus.OK);
     }

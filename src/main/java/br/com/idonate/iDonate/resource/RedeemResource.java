@@ -2,7 +2,10 @@ package br.com.idonate.iDonate.resource;
 
 import br.com.idonate.iDonate.model.Redeem;
 import br.com.idonate.iDonate.service.RedeemService;
+import br.com.idonate.iDonate.service.exception.NumberOfPointsInvalidException;
+import br.com.idonate.iDonate.service.exception.RedeemNotChangeDeposited;
 import br.com.idonate.iDonate.service.exception.RedeemNotRegisteredException;
+import br.com.idonate.iDonate.service.exception.RegisterNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +23,16 @@ public class RedeemResource {
     RedeemService redeemService;
 
     @PostMapping
-    public ResponseEntity<Redeem> save(@Valid @RequestBody Redeem redeem) throws RedeemNotRegisteredException {
+    public ResponseEntity<Redeem> save(@Valid @RequestBody Redeem redeem) throws RedeemNotRegisteredException,
+            RegisterNotFoundException, NumberOfPointsInvalidException {
         Redeem savedRedeem = redeemService.save(redeem);
         return new ResponseEntity<>(savedRedeem, HttpStatus.OK);
+    }
+
+    @PutMapping("deposited/{id}")
+    public ResponseEntity<Redeem> changeDeposited(@PathVariable Long id) throws RedeemNotChangeDeposited, RegisterNotFoundException {
+        Redeem redeem = redeemService.changeDeposited(id);
+        return new ResponseEntity<>(redeem, HttpStatus.OK);
     }
 
     @GetMapping("{id}")

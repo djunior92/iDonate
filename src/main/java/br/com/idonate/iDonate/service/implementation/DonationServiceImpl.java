@@ -1,6 +1,7 @@
 package br.com.idonate.iDonate.service.implementation;
 
 import br.com.idonate.iDonate.model.Donation;
+import br.com.idonate.iDonate.model.Profile;
 import br.com.idonate.iDonate.repository.CampaignRepository;
 import br.com.idonate.iDonate.repository.DonateRepository;
 import br.com.idonate.iDonate.repository.ProfileRepository;
@@ -8,6 +9,7 @@ import br.com.idonate.iDonate.service.DonationService;
 import br.com.idonate.iDonate.service.ProfileService;
 import br.com.idonate.iDonate.service.exception.CampaignAndBenefitedNotInformedException;
 import br.com.idonate.iDonate.service.exception.DonationNotRegisteredException;
+import br.com.idonate.iDonate.service.exception.NumberOfPointsInvalidException;
 import br.com.idonate.iDonate.service.exception.RegisterNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,9 +37,15 @@ public class DonationServiceImpl implements DonationService {
 
     @Override
     @Transactional(rollbackOn = DonationNotRegisteredException.class)
-    public Donation save(Donation donation) throws DonationNotRegisteredException, CampaignAndBenefitedNotInformedException {
+    public Donation save(Donation donation) throws DonationNotRegisteredException, CampaignAndBenefitedNotInformedException,
+            RegisterNotFoundException, NumberOfPointsInvalidException {
         if (Objects.isNull(donation.getBenefited()) && Objects.isNull(donation.getCampaign())) {
             throw new CampaignAndBenefitedNotInformedException("Não foi informado campanha e nem beneficiado para doar.");
+        }
+
+        Profile donor = profileService.searchProfileById(donation.getDonor().getId());
+        if (donor.getMyPoints() < donation.getPointsDonationed()) {
+            throw new NumberOfPointsInvalidException("Saldo não suficiente para realizar a doação. Saldo atual:" + donor.getMyPoints() + " pontos");
         }
 
         try {

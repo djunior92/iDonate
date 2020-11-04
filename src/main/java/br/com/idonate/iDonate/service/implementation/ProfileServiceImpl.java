@@ -62,7 +62,7 @@ public class ProfileServiceImpl implements ProfileService {
     @Override
     public Profile edit(Long id, Profile profile) throws RegisterNotFoundException {
         Profile profileEdit = profileExist(id);
-        IDonateUtils.copyNonNullProperties(profile, profileEdit, "id");
+        IDonateUtils.copyNonNullProperties(profile, profileEdit, "id", "myPoints", "pointsReceived");
 
         return profileRepository.save(profileEdit);
     }
@@ -89,6 +89,11 @@ public class ProfileServiceImpl implements ProfileService {
         profileView.description = profile.getDescription();
 
         return profileView;
+    }
+
+    @Override
+    public Profile searchProfileById(Long id) throws RegisterNotFoundException {
+        return profileRepository.findById(id).orElseThrow(() -> new RegisterNotFoundException("Perfil " + id + " não encontrado."));
     }
 
     @Override

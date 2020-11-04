@@ -1,7 +1,6 @@
 package br.com.idonate.iDonate.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import br.com.idonate.iDonate.model.Enum.StatusRedeem;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -46,6 +45,11 @@ public class Redeem {
     @Min(1)
     @Column(name = "points_redeemed")
     private Integer pointsRedeemed;
+
+    @NotNull
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private StatusRedeem status;
 
 }
 

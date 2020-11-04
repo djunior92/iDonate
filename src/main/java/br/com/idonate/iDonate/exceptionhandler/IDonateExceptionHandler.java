@@ -151,6 +151,14 @@ public class IDonateExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
+    @ExceptionHandler({NumberOfPointsInvalidException.class})
+    public ResponseEntity<Object> handleNumberOfPointsInvalidException(NumberOfPointsInvalidException ex, WebRequest request) {
+        String mensagemUsuario = messageSource.getMessage("pontos.numero-invalido", null, LocaleContextHolder.getLocale());
+        String mensagemDesenvolvedor = ex.toString();
+        List<Erro> erros = Collections.singletonList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+        return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
     @ExceptionHandler({PasswordOldInvalidException.class})
     public ResponseEntity<Object> handlePasswordOldInvalidException(PasswordOldInvalidException ex, WebRequest request) {
         String mensagemUsuario = messageSource.getMessage("usuario.senha-antiga-invalida", null, LocaleContextHolder.getLocale());
@@ -186,6 +194,22 @@ public class IDonateExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({ RechargeNotRegisteredException.class } )
     public ResponseEntity<Object> handleRechargeNotRegisteredException(RechargeNotRegisteredException ex, WebRequest request) {
         String mensagemUsuario = messageSource.getMessage("recarga.nao-registrado", null, LocaleContextHolder.getLocale());
+        String mensagemDesenvolvedor = ExceptionUtils.getRootCauseMessage(ex);
+        List<Erro> erros = Collections.singletonList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+        return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler({ RedeemNotChangeDeposited.class } )
+    public ResponseEntity<Object> handleRedeemNotChangeDeposited(RedeemNotChangeDeposited ex, WebRequest request) {
+        String mensagemUsuario = messageSource.getMessage("resgate.nao-registrado", null, LocaleContextHolder.getLocale());
+        String mensagemDesenvolvedor = ExceptionUtils.getRootCauseMessage(ex);
+        List<Erro> erros = Collections.singletonList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+        return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler({ RedeemNotRegisteredException.class } )
+    public ResponseEntity<Object> handleRedeemNotRegisteredException(RedeemNotRegisteredException ex, WebRequest request) {
+        String mensagemUsuario = messageSource.getMessage("resgate.nao-depositado", null, LocaleContextHolder.getLocale());
         String mensagemDesenvolvedor = ExceptionUtils.getRootCauseMessage(ex);
         List<Erro> erros = Collections.singletonList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
         return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);

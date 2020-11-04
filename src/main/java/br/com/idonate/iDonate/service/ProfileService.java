@@ -14,6 +14,7 @@ public interface ProfileService {
     Profile save(String login, Profile profile) throws ProfileNotRegisteredException, RegisterNotFoundException;
     Profile edit(Long id, Profile profile) throws RegisterNotFoundException;
     ProfileView searchById(Long id) throws RegisterNotFoundException;
+    Profile searchProfileById(Long id) throws RegisterNotFoundException;
     Optional<Profile> searchLogin(String login) throws RegisterNotFoundException;
     List<Profile> searchByName(String name);
     void recharge(Long id, Integer points) throws RegisterNotFoundException;

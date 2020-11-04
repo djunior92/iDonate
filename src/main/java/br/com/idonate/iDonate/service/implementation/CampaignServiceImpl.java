@@ -37,7 +37,7 @@ public class CampaignServiceImpl implements CampaignService {
     @Override
     public Campaign edit(Long id, Campaign campaign) throws RegisterNotFoundException {
         Campaign campaignEditing = campaignExist(id);
-        IDonateUtils.copyNonNullProperties(campaign, campaignEditing, "id", "profile", "creationDate", "endDate", "targetPercentage");
+        IDonateUtils.copyNonNullProperties(campaign, campaignEditing, "id", "profile", "creationDate", "endDate", "targetPercentage", "pointsReceived");
 
         return campaignRepository.save(campaignEditing);
     }
