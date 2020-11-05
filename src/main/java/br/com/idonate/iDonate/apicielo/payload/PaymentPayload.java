@@ -18,6 +18,6 @@ public class PaymentPayload {
 
     public static PaymentPayload of(Recharge recharge, CreditCard creditCard) {
         return PaymentPayload.builder().Type("CreditCard").Amount(recharge.getValueRecharged()).Installments(1)
-                .SoftDescriptor("iDonate Recharge").CreditCard(CreditCardPayload.of(creditCard)).build();
+                .SoftDescriptor("iDonate").CreditCard(CreditCardPayload.of(creditCard)).build();
     }
 }

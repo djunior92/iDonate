@@ -175,6 +175,14 @@ public class IDonateExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
+    @ExceptionHandler({ PaymentRefusedException.class } )
+    public ResponseEntity<Object> handlePaymentRefusedException(PaymentRefusedException ex, WebRequest request) {
+        String mensagemUsuario = messageSource.getMessage("pagamento.nao-autorizado", null, LocaleContextHolder.getLocale());
+        String mensagemDesenvolvedor = ExceptionUtils.getRootCauseMessage(ex);
+        List<Erro> erros = Collections.singletonList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+        return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
     @ExceptionHandler({ ProfileOrCampaignNotInformedException.class } )
     public ResponseEntity<Object> handleProfileOrCampaignNotInformedException(ProfileOrCampaignNotInformedException ex, WebRequest request) {
         String mensagemUsuario = messageSource.getMessage("comentario.comentado-nao-informado", null, LocaleContextHolder.getLocale());

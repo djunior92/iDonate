@@ -2,6 +2,8 @@ package br.com.idonate.iDonate.resource;
 
 import br.com.idonate.iDonate.model.Recharge;
 import br.com.idonate.iDonate.service.RechargeService;
+import br.com.idonate.iDonate.service.exception.NumberOfPointsInvalidException;
+import br.com.idonate.iDonate.service.exception.PaymentRefusedException;
 import br.com.idonate.iDonate.service.exception.RechargeNotRegisteredException;
 import br.com.idonate.iDonate.service.exception.RegisterNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,8 @@ public class RechargeResource {
     RechargeService rechargeService;
 
     @PostMapping
-    public ResponseEntity<Recharge> save(@Valid @RequestBody Recharge recharge) throws RechargeNotRegisteredException, RegisterNotFoundException {
+    public ResponseEntity<Recharge> save(@Valid @RequestBody Recharge recharge) throws RechargeNotRegisteredException,
+            RegisterNotFoundException, PaymentRefusedException, NumberOfPointsInvalidException {
         Recharge savedRecharge = rechargeService.save(recharge);
         return new ResponseEntity<>(savedRecharge, HttpStatus.OK);
     }

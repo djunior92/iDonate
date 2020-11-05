@@ -87,6 +87,9 @@ public class ProfileServiceImpl implements ProfileService {
         profileView.document = profile.getDocument();
         profileView.dateBirth = profile.getDateBirth();
         profileView.description = profile.getDescription();
+        profileView.likes = profile.getLikes();
+        profileView.dislikes = profile.getDislikes();
+
 
         return profileView;
     }

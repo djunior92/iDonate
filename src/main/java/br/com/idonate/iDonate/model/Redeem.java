@@ -35,7 +35,6 @@ public class Redeem {
     @JoinColumn(name = "bank_account_id")
     private BankAccount bankAccount;
 
-    @NotNull
     @Column(name = "value_redeemed")
     private BigDecimal valueRedeemed;
 
@@ -43,10 +42,10 @@ public class Redeem {
     private BigDecimal valueRate;
 
     @Min(1)
+    @NotNull
     @Column(name = "points_redeemed")
     private Integer pointsRedeemed;
 
-    @NotNull
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private StatusRedeem status;

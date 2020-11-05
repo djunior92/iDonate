@@ -38,7 +38,7 @@ public class Payment {
 
     private Integer status;
 
-    @Size(max = 10)
+    @Size(max = 60)
     @Column(name = "return_code")
     private String returnCode;
 

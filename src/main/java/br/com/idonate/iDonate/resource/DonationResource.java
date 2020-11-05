@@ -54,4 +54,9 @@ public class DonationResource {
         return new ResponseEntity<>(donationService.searchByCampaign(campaignId), HttpStatus.OK);
     }
 
+    @GetMapping("/all/{benefitedId}")
+    public ResponseEntity<List<Donation>> searchByBenefitedAll(@PathVariable Long benefitedId) throws RegisterNotFoundException {
+        return new ResponseEntity<>(donationService.searchByBenefitedAll(benefitedId), HttpStatus.OK);
+    }
+
 }

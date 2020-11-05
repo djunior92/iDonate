@@ -40,7 +40,7 @@ public class RedeemServiceImpl implements RedeemService {
     @Transactional(rollbackOn = RedeemNotRegisteredException.class)
     public Redeem save(Redeem redeem) throws RedeemNotRegisteredException, RegisterNotFoundException, NumberOfPointsInvalidException {
         Profile profile = profileService.searchProfileById(redeem.getProfile().getId());
-        if (profile.getPointsReceived() < redeem.getPointsRedeemed()) {
+        if (profile.getPointsReceived().compareTo(redeem.getPointsRedeemed()) < 0) {
             throw new NumberOfPointsInvalidException("Saldo não suficiente para realizar o resgate. Saldo atual:" + profile.getPointsReceived() + " pontos");
         }
 
@@ -48,7 +48,7 @@ public class RedeemServiceImpl implements RedeemService {
             redeem.setDateRedeem(LocalDateTime.now());
             redeem.setValueRate(BigDecimal.ZERO);
             redeem.setQuotation(quotationService.searchOpen());
-            redeem.setPointsRedeemed(calculatePoints(redeem));
+            redeem.setValueRedeemed(calculateValue(redeem));
             redeem.setStatus(StatusRedeem.REQUESTED);
 
             profileService.redeem(redeem.getProfile().getId(), redeem.getPointsRedeemed());
@@ -81,8 +81,8 @@ public class RedeemServiceImpl implements RedeemService {
         return redeemRepository.findByProfile(profileRepository.findById(profileId).orElseThrow());
     }
 
-    private Integer calculatePoints(Redeem redeem) {
-        return redeem.getValueRedeemed().multiply(redeem.getQuotation().getPricePoint()).intValue();
+    private BigDecimal calculateValue(Redeem redeem) {
+        return new BigDecimal(redeem.getPointsRedeemed()).multiply(redeem.getQuotation().getPricePoint());
     }
 
 }

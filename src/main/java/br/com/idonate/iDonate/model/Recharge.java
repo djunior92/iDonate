@@ -46,7 +46,11 @@ public class Recharge {
     @JoinColumn(name = "quotation_id")
     private Quotation quotation;
 
-    @OneToMany(mappedBy = "recharge")
-    private List<Payment> payments;
+    @ManyToOne
+    @JoinColumn(name = "credit_card_id")
+    private CreditCard creditCard;
+
+    /*@OneToMany(mappedBy = "recharge")
+    private List<Payment> payments;*/
 
 }

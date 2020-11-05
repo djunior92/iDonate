@@ -80,7 +80,8 @@ public class Campaign {
     public BigDecimal getTargetPercentage() {
         BigDecimal goalPoints = new BigDecimal(ObjectUtils.defaultIfNull(this.goalPoints, 0)).setScale(5, RoundingMode.HALF_EVEN);
         BigDecimal pointsReceived = new BigDecimal(ObjectUtils.defaultIfNull(this.pointsReceived, 0)).setScale(5, RoundingMode.HALF_EVEN);
-        this.targetPercentage = (pointsReceived.divide(goalPoints, RoundingMode.HALF_EVEN)).multiply(new BigDecimal(100)).setScale(2, RoundingMode.HALF_EVEN);
+        this.targetPercentage = (pointsReceived.compareTo(BigDecimal.ZERO) != 0 ?
+                (pointsReceived.divide(goalPoints, RoundingMode.HALF_EVEN)).multiply(new BigDecimal(100)).setScale(2, RoundingMode.HALF_EVEN) : BigDecimal.ZERO);
         return this.targetPercentage;
     }
 

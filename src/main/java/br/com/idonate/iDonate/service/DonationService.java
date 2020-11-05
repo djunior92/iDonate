@@ -17,5 +17,6 @@ public interface DonationService {
     List<Donation> searchByDonor(Long donorId) throws RegisterNotFoundException;
     List<Donation> searchByBenefited(Long benefitedId) throws RegisterNotFoundException;
     List<Donation> searchByCampaign(Long campaignId) throws RegisterNotFoundException;
+    List<Donation> searchByBenefitedAll(Long benefitedId) throws RegisterNotFoundException;
 
 }

@@ -50,5 +50,9 @@ public class ProfileView {
     @NotNull
     public String description;
 
+    public Long likes;
+
+    public Long dislikes;
+
 
 }

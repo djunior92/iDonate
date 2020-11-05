@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -77,5 +78,19 @@ public class DonationServiceImpl implements DonationService {
     @Override
     public List<Donation> searchByCampaign(Long campaignId) throws RegisterNotFoundException {
         return donateRepository.findByCampaign(campaignRepository.findById(campaignId).orElseThrow(() -> new RegisterNotFoundException("Campanha " + campaignId + " não encontrada.")));
+    }
+
+    @Override
+    public List<Donation> searchByBenefitedAll(Long benefitedId) throws RegisterNotFoundException {
+        Profile profileBenefited = profileRepository.findById(benefitedId).orElseThrow(() -> new RegisterNotFoundException("Perfil " + benefitedId + " do beneficiado, não encontrado."));
+        List<Donation> donationsReturn = new ArrayList<>(donateRepository.findByBenefited(profileBenefited));
+        campaignRepository.findByProfile(profileBenefited).forEach(c -> {
+            try {
+                donationsReturn.addAll(donateRepository.findByCampaign(campaignRepository.findById(c.getId())
+                        .orElseThrow(() -> new RegisterNotFoundException("Campanha " + c.getId() + " não encontrada."))));
+            } catch (RegisterNotFoundException e) {
+            }
+        });
+        return donationsReturn;
     }
 }
